@@ -1,0 +1,124 @@
+<div class="welcome-container">
+  <div class="header">
+    <div class="logo-container">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 70" width="180" height="70">
+        <rect x="2" y="2" width="26" height="26" fill="none" stroke="#333" stroke-width="2"/>
+        <rect x="5" y="5" width="20" height="20" fill="none" stroke="#333" stroke-width="1"/>
+        <text x="15" y="20" font-family="Arial, sans-serif" font-weight="500" font-size="14" fill="#333" text-anchor="middle">M</text>
+        <text x="35" y="25" font-family="Arial, sans-serif" font-weight="normal" font-size="24" fill="#999">MOVICASH</text>
+      </svg>
+    </div>
+
+    <div class="logout-btn" (click)="logout()">
+      <span class="logout-text">Salir</span>
+      <svg class="logout-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"/>
+      </svg>
+    </div>
+  </div>
+  
+  <h1 class="welcome-title">Bienvenido <span class="username">{{ nombreUsuario }}</span></h1>
+  
+  <div class="cards-container">
+    <!-- 1 -->
+    <mat-card class="feature-card">
+      <mat-card-content>
+        <div class="card-logo-container">
+          <div class="card-logo">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="36" height="36">
+              <path d="M20 6h-8l-2-2H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm0 12H4V8h16v10z" fill="#333"/>
+            </svg>
+          </div>
+          <div class="card-brand"></div>
+        </div>
+        
+        <div class="card-content-section">
+          <h2 class="card-title">Gestion de ordenantes</h2>
+          <p class="card-description">Administración y modificación de cuentas</p>
+          
+          <button mat-button class="read-more-btn" routerLink="/gestion-ordenante">
+            Gestion Ordenante
+          </button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  
+    <!--2 -->
+    <mat-card class="feature-card">
+      <mat-card-content>
+        <div class="card-logo-container">
+          <div class="card-logo">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="36" height="36">
+              <path d="M15 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm-9-2V7H4v3H1v2h3v3h2v-3h3v-2H6zm9 4c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" fill="#333"/>
+            </svg>
+          </div>
+          <div class="card-brand"></div>
+        </div>
+        
+        <div class="card-content-section">
+          <h2 class="card-title">Alta de ordenantes</h2>
+          <p class="card-description">Registro de nuevos clientes ordenantes</p>
+          
+          <button mat-button class="read-more-btn" routerLink="/creacion-ordenante">
+            Registrar Ordenante
+          </button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  
+    <!--3 -->
+    <mat-card class="feature-card">
+      <mat-card-content>
+        <div class="card-logo-container">
+          <div class="card-logo">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="36" height="36">
+              <path d="M6.99 11L3 15l3.99 4v-3H14v-2H6.99v-3zM21 9l-3.99-4v3H10v2h7.01v3L21 9z" fill="#333"/>
+            </svg>
+          </div>
+          <div class="card-brand"></div>
+        </div>
+        
+        <div class="card-content-section">
+          <h2 class="card-title">Solicitar Transacción</h2>
+          <p class="card-description">Inicio de nuevos procesos transaccionales</p>
+          
+          <button mat-button class="read-more-btn" routerLink="/pantalla-solicitud-transaccion">
+            Solicitar Transaccion
+          </button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  
+    <!-- 4-->
+    <mat-card class="feature-card">
+      <mat-card-content>
+        <div class="card-logo-container">
+          <div class="card-logo">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="36" height="36">
+              <path d="M16.54 11L13 7.46l1.41-1.41 2.12 2.12 4.24-4.24 1.41 1.41L16.54 11zM11 7H2v2h9V7zm10 6.41L19.59 12 17 14.59 14.41 12 13 13.41 15.59 16 13 18.59 14.41 20 17 17.41 19.59 20 21 18.59 18.41 16 21 13.41zM11 15H2v2h9v-2z" fill="#333"/>
+            </svg>
+          </div>
+          <div class="card-brand"></div>
+        </div>
+        
+        <div class="card-content-section">
+          <h2 class="card-title">Aprobación y Rechazo</h2>
+          <p class="card-description">Validación de operaciones pendientes</p>
+          
+          <button mat-button class="read-more-btn" routerLink="/pantalla-aprobacion-rechazo">
+            Aprobacion y Rechazo
+          </button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  
+  <footer class="footer">
+    <div class="footer-content">
+      <span>MOVICASH 2025</span>
+      <span class="spacer"></span>
+      <span>UTNG</span>
+    </div>
+  </footer>
+
+</div>

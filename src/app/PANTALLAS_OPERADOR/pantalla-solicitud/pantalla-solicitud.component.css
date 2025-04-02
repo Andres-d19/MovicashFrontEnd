@@ -1,0 +1,133 @@
+.logo-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0;
+}
+
+.transaction-container {
+  max-width: 1000px;
+  margin: 24px auto;
+  padding: 24px;
+  background-color: #fff;
+  border-radius: 8px;
+}
+
+.header-section {
+  margin-bottom: 20px;
+  border-bottom: 1px solid #e0e0e0;
+  padding-bottom: 16px;
+  margin-top: 0;
+}
+
+.ordenantes-container {
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.ordenante-section {
+  flex: 1;
+  min-width: 280px; /* Asegura que no se desborde */
+}
+
+.info-card {
+  height: 280px;
+  margin-top: 16px;
+  border-left: 4px solid #3f51b5;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.transaction-details {
+  margin-bottom: 24px;
+}
+
+.transaction-form {
+  font-family: Arial, sans-serif;
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.transaction-form mat-form-field {
+  flex: 1;
+  min-width: 240px; /* Mejora la visibilidad y alineación */
+  margin-bottom: 16px; /* Asegura separación entre campos */
+}
+
+.transaction-form mat-form-field input, 
+.transaction-form mat-form-field textarea {
+  font-size: 16px; /* Ajusta el tamaño de la fuente para mejor visualización */
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+/* Estilos responsivos */
+@media (max-width: 768px) {
+  .ordenantes-container {
+    flex-direction: column;
+  }
+
+  .transaction-form {
+    flex-direction: column;
+  }
+
+  .action-buttons {
+    justify-content: center;
+  }
+}
+
+mat-card-header {
+  margin-bottom: 16px;
+}
+
+mat-card-content p {
+  margin-bottom: 8px;
+}
+
+mat-card {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+}
+
+.mat-headline-5 {
+  font-family: Arial, sans-serif;
+  margin-bottom: 8px;
+  margin-top: 5px;
+  color: #3f51b5;
+  text-align: center;
+  font-size: 35px;
+}
+
+.mat-body-1 {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  padding-top: 1%;
+  padding-top: 0;
+  margin-top: 0;
+}
+
+.send-soli {
+  font-family: Arial, sans-serif;
+  background-color: #3d4eae !important;
+  color: white !important;
+  padding: 8px 20px; 
+  border-radius: 4px;
+  margin-top: auto;
+  font-weight: 500; 
+  letter-spacing: 1px; 
+}
+
+.header-combined {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}

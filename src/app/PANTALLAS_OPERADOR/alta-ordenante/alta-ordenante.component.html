@@ -1,0 +1,166 @@
+<div class="container">
+  <div class="logo-container">
+      <div class="logo">
+          <div class="logo-box">
+              <span>M</span>
+          </div>
+      </div>
+      <div class="brand-name">MOVICASH</div>
+  </div>
+
+<div class="containerTitulo">
+<h1 class="titulo-formulario">Alta Ordenantes</h1>
+<p class="subtitle">Por favor, complete los datos validos solicitados</p>
+
+
+
+</div>
+<form [formGroup]="ordenanteForm" (ngSubmit)="submitForm()">
+
+    <div class="form-row">
+      <label for="RFCOrdenante">RFC Ordenante:</label>
+      <input id="RFCOrdenante" formControlName="RFCOrdenante" (input)="formatearRFC()" placeholder="Ej: ABCD123456XYZ o ABCD123456X14"/>
+      <div *ngIf="ordenanteForm.get('RFCOrdenante')?.invalid && ordenanteForm.get('RFCOrdenante')?.touched">
+        <small *ngIf="ordenanteForm.get('RFCOrdenante')?.hasError('required')">El RFC es obligatorio.</small>
+        <small *ngIf="ordenanteForm.get('RFCOrdenante')?.hasError('pattern')">Formato inválido de RFC.</small>
+        <small *ngIf="ordenanteForm.get('RFCOrdenante')?.hasError('duplicate')" class="error-message">
+          El RFC ingresado ya existe en la base de datos. Por favor, verifica e intenta con otro RFC.
+        </small>
+      </div>
+    </div>
+  
+    <div class="form-row">
+      <label for="NombreOrdenante">Nombre Ordenante:</label>
+      <input id="NombreOrdenante" formControlName="NombreOrdenante" (keypress)="validarTexto($event)" />
+      <div *ngIf="ordenanteForm.get('NombreOrdenante')?.invalid && ordenanteForm.get('NombreOrdenante')?.touched">
+        <small>El nombre es obligatorio.</small>
+      </div>
+    </div>
+  
+    <div class="form-row">
+      <label for="ApPaterno">Apellido Paterno:</label>
+      <input id="ApPaterno" formControlName="ApPaterno" (keypress)="validarTexto($event)"/>
+      <div *ngIf="ordenanteForm.get('ApPaterno')?.invalid && ordenanteForm.get('ApPaterno')?.touched">
+        <small>El apellido paterno es obligatorio.</small>
+      </div>
+    </div>
+  
+    <div class="form-row">
+      <label for="ApMaterno">Apellido Materno:</label>
+      <input id="ApMaterno" formControlName="ApMaterno" (keypress)="validarTexto($event)" />
+      <div *ngIf="ordenanteForm.get('ApMaterno')?.invalid && ordenanteForm.get('ApMaterno')?.touched">
+      </div>
+    </div>
+  
+    <div class="form-row">
+      <label for="Sexo">Sexo:</label>
+      <select id="Sexo" formControlName="Sexo">
+        <option value="">Seleccione</option>
+        <option value="M">Masculino</option>
+        <option value="F">Femenino</option>
+      </select>
+      <div *ngIf="ordenanteForm.get('Sexo')?.invalid && ordenanteForm.get('Sexo')?.touched">
+        <small>Debe seleccionar un sexo.</small>
+      </div>
+    </div>
+  
+    <div class="form-row">
+      <label for="FechaNacimiento">Fecha de Nacimiento:</label>
+      <input type="date" id="FechaNacimiento" formControlName="FechaNacimiento" />
+      <div *ngIf="ordenanteForm.get('FechaNacimiento')?.invalid && ordenanteForm.get('FechaNacimiento')?.touched">
+        <small>La fecha de nacimiento es obligatoria.</small>
+      </div>
+    </div>
+  
+    <div class="form-row">
+      <label for="NumeroCuenta">Número de Cuenta:</label>
+      <input id="NumeroCuenta" formControlName="NumeroCuenta" type="text" minlength="18" maxlength="18" pattern="\d{18}"/>
+      <div *ngIf="ordenanteForm.get('NumeroCuenta')?.invalid && ordenanteForm.get('NumeroCuenta')?.touched">
+        <small>El número de cuenta es obligatorio.</small>
+        <small>El número de cuenta debe contener 18 dígitos.</small>
+        <small *ngIf="ordenanteForm.get('NumeroCuenta')?.hasError('duplicate')" class="error-message">
+          El número de cuenta ingresado ya existe en la base de datos. Por favor, verifica e intenta con otro número.
+        </small>
+      </div>
+    </div>
+  
+    <div class="form-row">
+      <label for="Saldo">Saldo:</label>
+      <input 
+        type="text"  
+        id="Saldo" 
+        formControlName="Saldo" 
+        (input)="onSaldoInput($event)" 
+        placeholder="Ej: 1500.50"
+        (keydown)="[$event.key === 'e' || $event.key === '-' || $event.key === '+' ? $event.preventDefault() : null]"
+      />
+      <div *ngIf="ordenanteForm.get('Saldo')?.invalid && ordenanteForm.get('Saldo')?.touched">
+        <small *ngIf="ordenanteForm.get('Saldo')?.hasError('required')">El saldo es obligatorio.</small>
+        <small *ngIf="ordenanteForm.get('Saldo')?.hasError('pattern')">
+          Solo números con hasta 2 decimales. Ej: 2500.75
+        </small>
+      </div>
+    </div>
+    <div class="form-row">
+      <label>Teléfonos:</label>
+      <div formArrayName="Telefono">
+        <div *ngFor="let telefono of telefonos.controls; let i = index">
+          <input [formControlName]="i" placeholder="Teléfono (7-10 dígitos)" />
+          <button class="btn-delete" type="button" (click)="eliminarTelefono(i)" *ngIf="telefonos.length > 1">
+            🗑️
+          </button>
+          <div *ngIf="telefono.invalid && telefono.touched">
+            <small *ngIf="telefono.hasError('required')">El teléfono es obligatorio.</small>
+            <small *ngIf="telefono.hasError('pattern')">Debe ser de 7 a 10 dígitos.</small>
+          </div>
+        </div>
+      </div>
+      <button type="button" (click)="agregarTelefono()">Agregar Teléfono</button>
+    </div>
+  
+    <div class="form-row">
+      <label><h5>Dirección</h5></label>
+      <div formGroupName="Direccion">
+        <label for="NumeroExterior">Número Exterior:</label>
+        <input id="NumeroExterior" formControlName="NumeroExterior" />
+        <div *ngIf="ordenanteForm.get('Direccion.NumeroExterior')?.invalid && ordenanteForm.get('Direccion.NumeroExterior')?.touched">
+          <small>El número exterior es obligatorio.</small>
+        </div>
+  
+        <label for="NumeroInterior">Número Interior:</label>
+        <input id="NumeroInterior" formControlName="NumeroInterior" />
+  
+        <label for="Calle">Calle:</label>
+        <input id="Calle" formControlName="Calle" />
+        <div *ngIf="ordenanteForm.get('Direccion.Calle')?.invalid && ordenanteForm.get('Direccion.Calle')?.touched">
+          <small>La calle es obligatoria.</small>
+        </div>
+  
+        <label for="Colonia">Colonia:</label>
+        <input id="Colonia" formControlName="Colonia" />
+        <div *ngIf="ordenanteForm.get('Direccion.Colonia')?.invalid && ordenanteForm.get('Direccion.Colonia')?.touched">
+          <small>La colonia es obligatoria.</small>
+        </div>
+  
+        <label for="Ciudad">Ciudad:</label>
+        <input id="Ciudad" formControlName="Ciudad" />
+        <div *ngIf="ordenanteForm.get('Direccion.Ciudad')?.invalid && ordenanteForm.get('Direccion.Ciudad')?.touched">
+          <small>La ciudad es obligatoria.</small>
+        </div>
+      </div>
+    </div>
+    <div class="form-row">
+      <label for="Estado">Estado:</label>
+      <select id="Estado" formControlName="Estado">
+        <option value="Activo">Activo</option>
+        <option value="Inactivo">Inactivo</option>
+        <option value="Bloqueado">Bloqueado</option>
+      </select>
+      <div *ngIf="ordenanteForm.get('Estado')?.invalid && ordenanteForm.get('Estado')?.touched">
+        <small>Debe seleccionar un estado.</small>
+      </div>
+    </div>
+  
+    <button type="submit" [disabled]="ordenanteForm.invalid">Registrar Ordenante</button>
+  </form>
+  

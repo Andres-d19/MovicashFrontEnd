@@ -1,0 +1,14 @@
+<div *ngIf="showPopup" class="popup-container">
+    <div class="popup">
+      <div class="popup-header">
+        <!-- Icono de Advertencia (Warning) -->
+       <img class="popup-icon"src="advertencia.svg" width="48"
+        height="48"alt="Warning Icon"/>
+        <h2 class="popup-title">{{ title }}</h2>
+        <p class="popup-message">{{ message }}</p>
+      </div>
+      <div class="popup-actions">
+        <button (click)="onClose()" class="popup-button cancel-btn">Cerrar</button>
+      </div>
+    </div>
+  </div>

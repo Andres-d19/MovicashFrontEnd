@@ -1,0 +1,53 @@
+<div class="container">
+    <div class="header">
+        <div class="title">
+            SE ENVIO UN CORREO ELECTRONICO CON UN CODIGO DE 6 DIGITOS
+        </div>
+        <div class="subtitle">
+            NO COMPARTAS EL CODIGO CON NADIE
+        </div>
+        <div class="subtitle">
+            Si no encuentras el codigo resuerda buscarlo en la seccion de SPAM
+        </div>
+    </div>
+
+    <div class="logo-animation-container">
+        <div class="logo-wrapper" id="movingLogo">
+            <div class="logo-box">
+                <span>M</span>
+            </div>
+        </div>
+        <div class="envelope">
+            <div class="envelope-body">
+                <div class="envelope-flap"></div>
+                <div class="envelope-content"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="verification-section">
+        <div class="timer-label">
+            CÓDIGO VÁLIDO POR: <span id="timer">{{ timerFormatted }}</span>
+        </div>
+        
+        <div class="code-input-container">
+            <input type="text" maxlength="1" class="code-input" (input)="onInputChange($event, 0)" #codeInput0 pattern="[A-Za-z0-9]">
+            <input type="text" maxlength="1" class="code-input" (input)="onInputChange($event, 1)" #codeInput1 pattern="[A-Za-z0-9]" >
+            <input type="text" maxlength="1" class="code-input" (input)="onInputChange($event, 2)" #codeInput2 pattern="[A-Za-z0-9]" >
+            <input type="text" maxlength="1" class="code-input" (input)="onInputChange($event, 3)" #codeInput3 pattern="[A-Za-z0-9]" >
+            <input type="text" maxlength="1" class="code-input" (input)="onInputChange($event, 4)" #codeInput4 pattern="[A-Za-z0-9]" >
+            <input type="text" maxlength="1" class="code-input" (input)="onInputChange($event, 5)" #codeInput5 pattern="[A-Za-z0-9]" >
+        </div>
+    </div>
+
+
+    <div class="brand-logo">
+        <div class="logo-box">
+            <span>M</span>
+        </div>
+        <div class="brand-name">MOVICASH</div>
+    </div>
+    <button class="botonaceptar" (click)="verificarCodigo()">ACEPTAR</button>
+
+</div>
+

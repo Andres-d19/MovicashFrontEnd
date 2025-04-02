@@ -1,0 +1,65 @@
+<div class="container">
+  <!-- Header -->
+  <div class="header">
+    <div class="header-container">
+      <h1 class="header-title">Aprobación/Rechazo de Transacciones</h1>
+    </div>
+  </div>
+
+  <!-- Formulario de transacciones -->
+  <div class="contenedorLogin" id="transaccionesForm">
+    <div class="section">
+      <h3>Listado de Transacciones Pendientes</h3>
+      <table class="transacciones-table">
+        <caption>Listado de Transacciones Pendientes</caption>
+        <thead>
+          <tr>
+            <th>ID Transacción</th>
+            <th>Usuario</th>
+            <th>Monto</th>
+            <th>Tipo de Transacción</th>
+            <th>Fecha y Hora de Solicitud</th>
+            <th>Acción</th>
+            <th>Detalles</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Itera sobre la lista de transacciones -->
+          <tr *ngFor="let transaccion of transaccionesPendientes">
+            <td>{{ transaccion.IdComprobante }}</td>
+            <td>{{ transaccion.NombreCompletoOrdenante }}</td>
+            <td>{{ transaccion.Monto | currency }}</td>
+            <td>{{ transaccion.Tipo || 'N/A' }}</td>
+            <td>{{ formatDate(transaccion.Fecha) }}</td>
+            <td>
+              <button class="btn-action" (click)="aprobarTransaccion(transaccion.IdComprobante)">
+                Aprobar
+              </button>
+              <button class="btn-action" (click)="rechazarTransaccion(transaccion.IdComprobante)">
+                Rechazar
+              </button>
+            </td>
+            <td>
+              <button class="btn-details" (click)="showTransactionInfo(transaccion)">
+                Ver Detalles
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- Detalles de la transacción -->
+<div *ngIf="modalVisible" class="info-container">
+  <h3>Resumen de Transacción</h3>
+  <p><strong>ID Transacción:</strong> {{ transactionDetails?.IdComprobante }}</p>
+  <p><strong>Usuario:</strong> {{ transactionDetails?.NombreCompletoOrdenante }}</p>
+  <p><strong>Monto:</strong> {{ transactionDetails?.Monto | currency }}</p>
+  <p><strong>Tipo de Transacción:</strong> {{ transactionDetails?.Tipo || 'N/A' }}</p>
+  <p><strong>Fecha y Hora de Solicitud:</strong> {{ formatDate(transactionDetails?.Fecha) }}</p>
+  <p><strong>Estado:</strong> {{ transactionDetails?.Estado }}</p>
+  <p><strong>Concepto:</strong> {{ transactionDetails?.Concepto }}</p>
+  <button class="btn-action" (click)="closeModal()">Cerrar</button>
+</div>

@@ -1,0 +1,179 @@
+<div class="container">
+  <div class="logo-container">
+    <div class="logo">
+        <div class="logo-box">
+            <span>M</span>
+        </div>
+    </div>
+    <div class="brand-name">MOVICASH</div>
+</div>
+
+
+  <h1 class="title">GESTIÓN DE ORDENANTES</h1>
+  <p class="subtitle">Lista de Ordenantes</p>
+
+  <div class="header-container">
+    <div class="search-container">
+      <a [routerLink]="['/pantalla-deposito-cuenta']"   class="nav-link">Cuenta de Ahorro</a>
+      <input
+        type="text"
+        placeholder="Buscar ordenante..."
+        class="search-input"
+        [(ngModel)]="searchText"
+        (input)="buscarOrdenante()" />
+    </div>
+  </div>
+
+  <div class="table-container">
+    <table class="ordenantes-table">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Apellido Paterno</th>
+          <th>Apellido Materno</th>
+          <th>RFC</th>
+          <th>Teléfono</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let ordenante of ordenantesFiltrados" (click)="seleccionarOrdenante(ordenante, 'modificar')">
+          <td>{{ ordenante.NombreOrdenante }}</td>
+          <td>{{ ordenante.ApPaterno }}</td>
+          <td>{{ ordenante.ApMaterno }}</td>
+          <td>{{ ordenante.RFCOrdenante }}</td>
+          <td>{{ ordenante.Telefono && ordenante.Telefono.length > 0 ? ordenante.Telefono[0] : 'Sin teléfono' }}</td>
+          <td class="acciones">
+            <button (click)="seleccionarOrdenante(ordenante, 'modificar'); $event.stopPropagation();" class="action-btn modify-btn">
+              🖍
+            </button>
+            
+            <button (click)="seleccionarOrdenante(ordenante, 'eliminar'); $event.stopPropagation();" class="action-btn delete-btn">
+              🗑
+            </button>
+            
+            
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+
+
+<!-- Modal para modificar el ordenante -->
+<div *ngIf="ordenanteSeleccionado" class="modal-overlay" (click)="cerrarModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <div class="modal-logo">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 70" width="130">
+          <!-- Contorno externo -->
+          <rect x="2" y="2" width="36" height="36" fill="none" stroke="#333" stroke-width="2"/>
+          <!-- Contorno interno -->
+          <rect x="6" y="6" width="28" height="28" fill="none" stroke="#333" stroke-width="1"/>
+          <!-- Letra M estilizada dentro del cuadro -->
+          <text x="20" y="28" font-family="Arial, sans-serif" font-weight="500" font-size="20" fill="#333" text-anchor="middle">M</text>
+          <!-- Texto MOVICASH más cerca -->
+          <text x="48" y="30" font-family="Arial, sans-serif" font-weight="normal" font-size="16" fill="#999">MOVICASH</text>
+        </svg>
+      </div>
+      <h2 class="modal-title">Editar Ordenante</h2>
+    </div>
+
+    <form class="ordenante-form" (ngSubmit)="modificarOrdenante()">
+      
+      <!-- Datos Personales -->
+<div class="form-group">
+  <div class="input-field">
+    <h3 class="section-title">Datos Personales</h3>
+    
+    <label for="rfc" class="required">RFC</label>
+    <input type="text" [(ngModel)]="ordenanteSeleccionado.RFCOrdenante" name="rfc" id="rfc" required>
+  </div>
+
+  <br>
+
+  <div class="form-group">
+    <div class="input-field">
+      <label for="nombre" class="required">Nombre(s)</label>
+      <input type="text" [(ngModel)]="ordenanteSeleccionado.NombreOrdenante" name="nombre" id="nombre" required>
+    </div>
+
+    <div class="input-field">
+      <label for="apPaterno" class="required">Apellido Paterno</label>
+      <input type="text" [(ngModel)]="ordenanteSeleccionado.ApPaterno" name="apPaterno" id="apPaterno" required>
+    </div>
+
+    <div class="input-field">
+      <label for="apMaterno">Apellido Materno</label>
+      <input type="text" [(ngModel)]="ordenanteSeleccionado.ApMaterno" name="apMaterno" id="apMaterno">
+    </div>
+  </div>
+</div>
+
+<!-- Domicilio (sección separada después de Datos Personales) -->
+<div class="form-group">
+  <div class="input-field">
+    <h3 class="section-title">Domicilio</h3>
+    
+    <!-- Fila para Calle y Colonia -->
+    <div class="row">
+      <div class="col">
+        <label for="calle">Calle</label>
+        <input type="text" [(ngModel)]="ordenanteSeleccionado.Direccion.Calle" name="calle" id="calle">
+      </div>
+
+      <div class="col">
+        <label for="colonia">Colonia</label>
+        <input type="text" [(ngModel)]="ordenanteSeleccionado.Direccion.Colonia" name="colonia" id="colonia">
+      </div>
+    </div>
+
+    <!-- Fila para Número Exterior e Interior -->
+    <div class="row">
+      <div class="col">
+        <label for="numeroExterior">Número Exterior</label>
+        <input type="text" [(ngModel)]="ordenanteSeleccionado.Direccion.NumeroExterior" name="numeroExterior" id="numeroExterior">
+      </div>
+
+      <div class="col">
+        <label for="numeroInterior">Número Interior</label>
+        <input type="text" [(ngModel)]="ordenanteSeleccionado.Direccion.NumeroInterior" name="numeroInterior" id="numeroInterior">
+      </div>
+    </div>
+
+    <!-- Fila para Ciudad -->
+    <div class="row">
+      <div class="col">
+        <label for="ciudad">Ciudad</label>
+        <input type="text" [(ngModel)]="ordenanteSeleccionado.Direccion.Ciudad" name="ciudad" id="ciudad">
+      </div>
+    </div>
+  </div>
+</div>
+
+      <!-- Teléfonos -->
+
+      <div class="form-group">
+        <div class="input-field">
+          <h3 class="section-title">Teléfonos</h3>
+          <label for="telefono" class="required">Teléfono 1</label>
+            <input type="text" [(ngModel)]="ordenanteSeleccionado.Telefono[0]" name="telefono" id="telefono" required>
+        </div>
+      </div>
+      
+      
+   
+      
+      <!-- Botones -->
+      <div class="button-group">
+        <button type="submit" class="btn btn-primary">Guardar</button>
+        <button type="button" class="btn btn-secondary" (click)="cerrarModal()">Cancelar</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+

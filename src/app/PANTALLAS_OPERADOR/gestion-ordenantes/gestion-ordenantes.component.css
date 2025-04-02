@@ -1,0 +1,451 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+/* Estilos generales para el cuerpo */
+body {
+  background-color: #a1bcb9;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* Contenedor principal */
+.container {
+  max-width: 900px;
+  margin: auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+/* Estilos para el logo */
+.logo-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.logo {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 5px;
+}
+
+.logo-box {
+  position: relative;
+  width: 70px;
+  height: 70px;
+}
+
+.logo-box:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 2px solid #333;
+}
+
+.logo-box span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 42px;
+  font-weight: 500;
+  color: #333;
+}
+
+.logo-box:after {
+  content: "";
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  width: 100%;
+  height: 100%;
+  border: 1px solid #333;
+  z-index: -1;
+}
+
+.brand-name {
+  font-size: 20px;
+  letter-spacing: 4px;
+  color: #333;
+  font-family: Arial, sans-serif;
+  margin-top: 10px;
+}
+
+/* Estilos para el título */
+.title {
+  text-align: center;
+  font-size: 36px;
+  font-weight: bold;
+  color: #333;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+  font-family: Arial, sans-serif;
+}
+
+/* Estilos para el subtítulo */
+.subtitle {
+  text-align: center;
+  font-size: 18px;
+  color: #333;
+  margin-bottom: 30px;
+  font-family: Arial, sans-serif;
+  font-weight: bold;
+}
+
+/* Estilos generales para el header */
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+
+/* Estilos del link "Cuenta de Ahorro" */
+.nav-link {
+  padding: 8px 15px;
+  background-color: #164474;
+  color: white;
+  border-radius: 5px;
+  text-decoration: none;
+}
+
+.nav-link:hover {
+  background-color: #304aa2;
+}
+
+/* Estilos para el buscador */
+.search-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  margin-top: 20px;
+  width: 200%;
+}
+
+.search-input {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 700px;
+}
+
+/* Estilos para los botones de búsqueda */
+.search-button {
+  background-color: #a0b2b9;
+  color: black;
+  padding: 8px 12px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.search-button:hover {
+  background-color: #112d3e;
+}
+
+/* Estilos para la tabla */
+.ordenantes-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.ordenantes-table th, .ordenantes-table td {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: left;
+}
+
+.ordenantes-table th {
+  background-color: #164474;
+  color: white;
+  font-weight: bold;
+}
+
+.ordenantes-table tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.ordenantes-table tbody tr:hover {
+  background-color: #e0e0e0;
+  transition: 0.3s ease;
+}
+
+/* Estilos para los botones de acción en la tabla */
+.acciones button {
+  margin-right: 5px;
+  padding: 8px 12px;
+  background-color: #164474;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+}
+
+.acciones button:hover {
+  background-color: #304aa2;
+}
+
+/* Estilos para el formulario */
+/* Estilos para el modal actualizado */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  padding: 0;
+  border-radius: 8px;
+  width: 80%;
+  max-width: 900px;
+  height: auto;
+  max-height: 90vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 20px;
+  border-bottom: 1px solid #e0e0e0;
+  margin: 0px; /* Ajusta el valor según lo necesites */
+}
+
+
+.logo-container2 {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+
+
+.modal-title {
+  flex-grow: 1;
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0;
+  color: #333;
+  margin-left: -110px; /* Ajusta el valor según lo necesites */
+
+}
+
+.section-title {
+  color: #164474;
+  font-size: 18px;
+  font-weight: bold;
+  margin: 20px 0 15px 0;
+  padding: 0 20px;
+}
+
+.ordenante-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 0 20px 30px 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 13px 20px;
+  margin-bottom: 10px;
+  background-color: #f6f6f6;
+  padding: 25px; /* Agregar un poco de espacio interno para darle más amplitud */
+}
+
+.input-field {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+  flex: 1;
+  min-width: 200px;
+}
+
+.input-field label {
+  font-size: 14px;
+  margin-bottom: 5px;
+  color: #555;
+}
+
+.input-field input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 100%;
+}
+
+.input-field input:focus {
+  outline: none;
+  border-color: #2c5a9f;
+}
+
+.required::after {
+  content: " *";
+  color: red;
+}
+
+.button-group {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+  padding: 0 20px;
+}
+
+.btn {
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.btn-primary {
+  background-color: #164474;
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: #304aa2;
+}
+
+.btn-secondary {
+  background-color: black;
+  color: white;
+}
+
+.btn-secondary:hover {
+  background-color: #282626;
+  color: white;
+}
+
+.phone-container {
+  display: flex;
+  gap: 10px;
+  align-items: flex-end;
+  width: 100%;
+}
+
+.phone-field {
+  display: flex;
+  flex-direction: column;
+}
+
+.phone-field:first-child {
+  width: 80px;
+}
+
+.phone-field:nth-child(2) {
+  flex-grow: 1;
+}
+
+.btn-add {
+  padding: 10px 15px;
+  background-color: #007ea7;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn-delete {
+  padding: 10px;
+  background-color: #f0f0f0;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.separator {
+  height: 1px;
+  background-color: #e0e0e0;
+  margin: 20px 0;
+}
+
+.eye-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #777;
+}
+.modal-logo {
+  width: 130px;
+  margin-right: 0px;
+  flex-shrink: 0;
+  position: relative;
+  top: 15px; /* Ajusta el valor según lo necesites */
+}
+
+.modal-content .input-field input {
+  width: 350px; /* Ajusta el tamaño según lo necesites */
+  max-width: 90%; /* Para que no se desborde en pantallas pequeñas */
+  
+}
+
+
+
+/* Estilo para las filas y columnas */
+.row {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.col {
+  flex: 1;
+}
+
+.col input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.col label {
+  font-size: 1rem;
+  font-weight: 500;
+  margin-bottom: 5px;
+  display: block;
+}
+
+/* Ajustes de diseño en pantallas pequeñas */
+@media (max-width: 768px) {
+  .row {
+    flex-direction: column;
+  }
+
+  .col {
+    flex: none;
+    width: 100%;
+  }
+}

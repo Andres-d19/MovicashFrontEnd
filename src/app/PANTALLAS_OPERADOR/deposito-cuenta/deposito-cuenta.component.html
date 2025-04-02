@@ -1,0 +1,50 @@
+<div class="container">
+  <div class="logo-container">
+      <div class="logo">
+          <div class="logo-box">
+              <span>M</span>
+          </div>
+      </div>
+      <div class="brand-name">MOVICASH</div>
+  </div>
+
+  <h1 class="title">GESTIÓN DE ORDENANTES</h1>
+  <p class="subtitle">Cuenta de deposito</p>
+
+<!-- Formulario de Depósito -->
+<form [formGroup]="depositoForm" (ngSubmit)="realizarDeposito()">
+  <div>
+    <label for="numeroCuenta">Número de Cuenta</label>
+    <input type="text" id="numeroCuenta" formControlName="numeroCuenta" required>
+    <div *ngIf="depositoForm.get('numeroCuenta')?.invalid && depositoForm.get('numeroCuenta')?.touched">
+      Número de cuenta inválido
+    </div>
+  </div>
+
+  <div>
+    <label for="monto">Monto a Depositar</label>
+    <input type="text" id="monto" formControlName="monto" (input)="validarMonto($event)">
+    <div *ngIf="depositoForm.get('monto')?.invalid && depositoForm.get('monto')?.touched">
+      El monto debe ser mayor a 0
+    </div>
+  </div>
+
+  <!-- Campo adicional para RFC del ordenante -->
+  <div>
+    <label for="rfcOrdenante">RFC Ordenante</label>
+    <input type="text" id="rfcOrdenante" formControlName="rfcOrdenante" required>
+    <div *ngIf="depositoForm.get('rfcOrdenante')?.invalid && depositoForm.get('rfcOrdenante')?.touched">
+      RFC inválido
+    </div>
+  </div>
+
+  <button type="submit" [disabled]="depositoForm.invalid">Depositar</button>
+</form>
+
+<!-- Mostrar mensaje de éxito o error -->
+<p *ngIf="mensaje" [ngClass]="{'success-message': mensaje.includes('éxito'), 'error-message': mensaje.includes('Error')}">
+  {{ mensaje }}
+</p>
+
+<!-- Mostrar saldo solo si el depósito fue exitoso -->
+<p *ngIf="mensaje.includes('éxito') && saldo !== null">Saldo actualizado: {{ saldo | currency: 'MX' }}</p>

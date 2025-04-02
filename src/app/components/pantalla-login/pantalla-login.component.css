@@ -1,0 +1,210 @@
+/* Reset general y fuentes
+   Elimina márgenes y padding por defecto, establece box-sizing para todos los elementos */
+   * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Estilos del body
+     Configura un fondo gris claro y centra todos los elementos usando flexbox */
+  body {
+    background-color: #f5f5f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+  
+  /* Contenedor de la animación 
+     Posicionado de forma fija, pero ahora con un tamaño más pequeño y centrado */
+  .animation-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* Tamaño reducido para que la animación sea más pequeña */
+    width: 600px;  /* Ancho reducido */
+    height: 600px; /* Alto reducido */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    background-color: #f5f5f5;
+    /* Animación para desaparecer después de 3 segundos */
+    animation: fadeOut 0.5s ease-in-out 5s forwards;
+  }
+  
+  /* Animación para desvanecer elementos */
+  @keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; visibility: hidden; }
+  }
+  
+  /* Fondo que aparece después de la animación */
+  .PantallaFondo {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #f5f5f5;
+    z-index: 1;
+  }
+  
+  /* Contenedor de posicionamiento del login 
+     Ahora está exactamente centrado en la pantalla usando posición absoluta */
+  .contenedorPosisionLogin {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    max-width: 450px; /* Ancho máximo del formulario */
+    z-index: 5;
+    /* Animación para aparecer después de que la animación del logo desaparezca */
+    animation: fadeIn 1s ease-in-out 3s forwards;
+    opacity: 0;
+  }
+  
+  /* Animación para hacer aparecer elementos */
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  /* Contenedor del formulario de login */
+  .contenedorLogin {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    width: 100%;
+  }
+  
+  /* Título del formulario */
+  .title {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 1.5rem;
+    font-weight: bold;
+  }
+  
+  /* Estilos del formulario */
+  .form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem; /* Espacio entre elementos del formulario */
+  }
+  
+  /* Grupo de elementos de entrada */
+  .input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem; /* Espacio entre label e input */
+  }
+  
+  /* Estilos para las etiquetas */
+  .input-group label {
+    font-size: 1rem;
+    color: #333;
+    font-weight: 500;
+  }
+  
+  /* Estilos para los campos de entrada */
+  .input-group input {
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+    width: 100%;
+  }
+  
+  /* Contenedor para el campo de contraseña que incluye el botón del ojo */
+  .password-container {
+    position: relative;
+    width: 100%;
+  }
+  
+  /* Botón para alternar visibilidad de la contraseña */
+  .toggle-password {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  
+  /* Estilos para los botones */
+  .button {
+    background-color: #164474;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 0.75rem;
+    font-size: 1rem;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-weight: bold;
+    transition: background-color 0.3s;
+  }
+  
+  /* Efecto hover para botones */
+  .button:hover {
+    background-color: #304aa2;
+  }
+  
+  /* Mensajes de error */
+  .error-message {
+    padding: 0.5rem;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    background-color: #ffebee;
+    color: #c62828;
+  }
+  
+  /* Mensajes de éxito */
+  .success-message {
+    padding: 0.5rem;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    background-color: #e8f5e9;
+    color: #2e7d32;
+  }
+  
+  /* Estilos específicos para el campo de correo electrónico */
+  #correo {
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  /* Estilos para el botón de login/aceptar */
+  #loginForm .button {
+    background-color: #164474;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 1rem;
+    text-align: center;
+    display: block;
+    margin-top: 1.5rem;
+  }
+  
+  /* Estilos para dispositivos móviles */
+  @media (max-width: 480px) {
+    .contenedorPosisionLogin {
+      max-width: 90%;
+    }
+    
+    .contenedorLogin {
+      padding: 1.5rem;
+    }
+  }
