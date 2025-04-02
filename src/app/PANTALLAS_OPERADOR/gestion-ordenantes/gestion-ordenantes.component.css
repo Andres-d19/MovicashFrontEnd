@@ -111,11 +111,12 @@ body {
 
 /* Estilos del link "Cuenta de Ahorro" */
 .nav-link {
-  padding: 8px 15px;
+  padding: 1px 15px;
   background-color: #164474;
   color: white;
   border-radius: 5px;
   text-decoration: none;
+  font-size: 14.7px;
 }
 
 .nav-link:hover {
