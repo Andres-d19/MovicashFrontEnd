@@ -78,11 +78,134 @@ export class PantallaGestionAdminComponent implements OnInit {
             this.loadAdmins();
             this.closeModal();
             this.resetForm();
-            Swal.fire('Éxito', 'Administrador actualizado correctamente', 'success');
+            Swal.fire({
+              html: `<div class="swal-logo">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 70" width="120">
+                    <rect x="2" y="2" width="36" height="36" fill="none" stroke="#333" stroke-width="2"/>
+                    <rect x="6" y="6" width="28" height="28" fill="none" stroke="#333" stroke-width="1"/>
+                    <text x="20" y="28" font-family="Arial, sans-serif" font-weight="500" font-size="20" fill="#333" text-anchor="middle">M</text>
+                    <text x="48" y="30" font-family="Arial, sans-serif" font-weight="normal" font-size="16" fill="#999">MOVICASH</text>
+                  </svg>
+                </div>
+                <h2 class="swal-title">ÉXITO</h2>
+                <p class="swal-text">Administrador modificado correctamente</p>`,
+              icon: "success",
+              customClass: {
+                popup: "custom-swal",
+                 confirmButton: "custom-confirm-button",
+              },
+              showConfirmButton: true,
+            });
+    
+            // Agregar estilos personalizados
+            const style = document.createElement("style");
+            style.innerHTML = `
+              .custom-swal {
+               position: relative;
+               border-radius: 10px;
+               overflow: hidden;
+              }
+              .swal-logo {
+              position: absolute;
+              top: 15px;
+              left: 15px;
+              z-index: 10;
+              }
+             .swal-title {
+              margin-top: 15px;
+              font-size: 24px;
+              font-weight: bold;
+              color: #333;
+              letter-spacing: 1px;
+              }
+             .swal-text {
+             font-size: 16px;
+             margin: 10px 0 25px;
+             color: #555;
+             }
+    
+            .swal2-actions {
+             margin-top: 0 !important;
+             gap: 15px;
+            }
+            .swal2-confirm, .swal2-cancel {
+            padding: 12px 24px !important;
+             font-size: 15px !important;
+             font-weight: 500 !important;
+        border-radius: 4px !important;
+        background-color: #164474 !important; 
+    border-color: #164474 !important;
+    color: white !important;
+        
+        min-width: 120px !important;
+      }`;
+            document.head.appendChild(style);
+            
           },
           (error) => {
             console.error('Error al actualizar administrador:', error);
-            Swal.fire('Error', 'No se pudo actualizar el administrador', 'error');
+            Swal.fire({
+              html: `<div class="swal-logo">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 70" width="120">
+                    <rect x="2" y="2" width="36" height="36" fill="none" stroke="#333" stroke-width="2"/>
+                    <rect x="6" y="6" width="28" height="28" fill="none" stroke="#333" stroke-width="1"/>
+                    <text x="20" y="28" font-family="Arial, sans-serif" font-weight="500" font-size="20" fill="#333" text-anchor="middle">M</text>
+                    <text x="48" y="30" font-family="Arial, sans-serif" font-weight="normal" font-size="16" fill="#999">MOVICASH</text>
+                  </svg>
+                </div>
+                <h2 class="swal-title">ERROR</h2>
+                <p class="swal-text">No se pudo actualizar el administrador</p>`,
+              icon: "error",
+              customClass: {
+                popup: "custom-swal",
+                 confirmButton: "custom-confirm-button",
+              },
+              showConfirmButton: true,
+            });
+            
+            // Agregar estilos personalizados
+            const style = document.createElement("style");
+            style.innerHTML = `
+              .custom-swal {
+               position: relative;
+               border-radius: 10px;
+               overflow: hidden;
+              }
+              .swal-logo {
+              position: absolute;
+              top: 15px;
+              left: 15px;
+              z-index: 10;
+              }
+             .swal-title {
+              margin-top: 15px;
+              font-size: 24px;
+              font-weight: bold;
+              color: #333;
+              letter-spacing: 1px;
+              }
+             .swal-text {
+             font-size: 16px;
+             margin: 10px 0 25px;
+             color: #555;
+             }
+            
+            .swal2-actions {
+             margin-top: 0 !important;
+             gap: 15px;
+            }
+            .swal2-confirm, .swal2-cancel {
+            padding: 12px 24px !important;
+             font-size: 15px !important;
+             font-weight: 500 !important;
+            border-radius: 4px !important;
+            background-color: #164474 !important; 
+            border-color: #164474 !important;
+            color: white !important;
+            
+            min-width: 120px !important;
+            }`;
+            document.head.appendChild(style);
           }
         );
       } else {
@@ -105,7 +228,68 @@ export class PantallaGestionAdminComponent implements OnInit {
       }
       if (age < 18) {
         this.errorMessage = 'Debe ser mayor de 18 años';
-        Swal.fire('Error', this.errorMessage, 'error');
+        Swal.fire({
+          html: `<div class="swal-logo">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 70" width="120">
+                <rect x="2" y="2" width="36" height="36" fill="none" stroke="#333" stroke-width="2"/>
+                <rect x="6" y="6" width="28" height="28" fill="none" stroke="#333" stroke-width="1"/>
+                <text x="20" y="28" font-family="Arial, sans-serif" font-weight="500" font-size="20" fill="#333" text-anchor="middle">M</text>
+                <text x="48" y="30" font-family="Arial, sans-serif" font-weight="normal" font-size="16" fill="#999">MOVICASH</text>
+              </svg>
+            </div>
+            <h2 class="swal-title">ERROR</h2>
+            <p class="swal-text">El administrador debe ser mayor de 18 años.</p>`,
+          icon: "error",
+          customClass: {
+            popup: "custom-swal",
+             confirmButton: "custom-confirm-button",
+          },
+          showConfirmButton: true,
+        });
+        
+        // Agregar estilos personalizados
+        const style = document.createElement("style");
+        style.innerHTML = `
+          .custom-swal {
+           position: relative;
+           border-radius: 10px;
+           overflow: hidden;
+          }
+          .swal-logo {
+          position: absolute;
+          top: 15px;
+          left: 15px;
+          z-index: 10;
+          }
+         .swal-title {
+          margin-top: 15px;
+          font-size: 24px;
+          font-weight: bold;
+          color: #333;
+          letter-spacing: 1px;
+          }
+         .swal-text {
+         font-size: 16px;
+         margin: 10px 0 25px;
+         color: #555;
+         }
+        
+        .swal2-actions {
+         margin-top: 0 !important;
+         gap: 15px;
+        }
+        .swal2-confirm, .swal2-cancel {
+        padding: 12px 24px !important;
+         font-size: 15px !important;
+         font-weight: 500 !important;
+        border-radius: 4px !important;
+        background-color: #164474 !important; 
+        border-color: #164474 !important;
+        color: white !important;
+        
+        min-width: 120px !important;
+        }`;
+        document.head.appendChild(style);
         isValid = false;
       }
     }
@@ -119,7 +303,68 @@ export class PantallaGestionAdminComponent implements OnInit {
       }
       if (tel.Lada && !/^\d{2}$/.test(tel.Lada)) {
         this.errorMessage = 'La lada debe tener exactamente 2 dígitos';
-        Swal.fire('Error', this.errorMessage, 'error');
+        Swal.fire({
+          html: `<div class="swal-logo">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 70" width="120">
+                <rect x="2" y="2" width="36" height="36" fill="none" stroke="#333" stroke-width="2"/>
+                <rect x="6" y="6" width="28" height="28" fill="none" stroke="#333" stroke-width="1"/>
+                <text x="20" y="28" font-family="Arial, sans-serif" font-weight="500" font-size="20" fill="#333" text-anchor="middle">M</text>
+                <text x="48" y="30" font-family="Arial, sans-serif" font-weight="normal" font-size="16" fill="#999">MOVICASH</text>
+              </svg>
+            </div>
+            <h2 class="swal-title">ERROR</h2>
+            <p class="swal-text">La lada debe de tener 2 digitos.</p>`,
+          icon: "error",
+          customClass: {
+            popup: "custom-swal",
+             confirmButton: "custom-confirm-button",
+          },
+          showConfirmButton: true,
+        });
+        
+        // Agregar estilos personalizados
+        const style = document.createElement("style");
+        style.innerHTML = `
+          .custom-swal {
+           position: relative;
+           border-radius: 10px;
+           overflow: hidden;
+          }
+          .swal-logo {
+          position: absolute;
+          top: 15px;
+          left: 15px;
+          z-index: 10;
+          }
+         .swal-title {
+          margin-top: 15px;
+          font-size: 24px;
+          font-weight: bold;
+          color: #333;
+          letter-spacing: 1px;
+          }
+         .swal-text {
+         font-size: 16px;
+         margin: 10px 0 25px;
+         color: #555;
+         }
+        
+        .swal2-actions {
+         margin-top: 0 !important;
+         gap: 15px;
+        }
+        .swal2-confirm, .swal2-cancel {
+        padding: 12px 24px !important;
+         font-size: 15px !important;
+         font-weight: 500 !important;
+        border-radius: 4px !important;
+        background-color: #164474 !important; 
+        border-color: #164474 !important;
+        color: white !important;
+        
+        min-width: 120px !important;
+        }`;
+        document.head.appendChild(style);
         isValid = false;
       }
     });
@@ -127,54 +372,418 @@ export class PantallaGestionAdminComponent implements OnInit {
     // Validar si el Nombre Personal está vacío
   if (!this.admin.NombrePersonal) {
     this.errorMessage = 'El nombre personal es obligatorio.';
-    Swal.fire('Error', this.errorMessage, 'error');
+    Swal.fire({
+      html: `<div class="swal-logo">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 70" width="120">
+            <rect x="2" y="2" width="36" height="36" fill="none" stroke="#333" stroke-width="2"/>
+            <rect x="6" y="6" width="28" height="28" fill="none" stroke="#333" stroke-width="1"/>
+            <text x="20" y="28" font-family="Arial, sans-serif" font-weight="500" font-size="20" fill="#333" text-anchor="middle">M</text>
+            <text x="48" y="30" font-family="Arial, sans-serif" font-weight="normal" font-size="16" fill="#999">MOVICASH</text>
+          </svg>
+        </div>
+        <h2 class="swal-title">ERROR</h2>
+        <p class="swal-text">El nombre personal es obligatorio.</p>`,
+      icon: "error",
+      customClass: {
+        popup: "custom-swal",
+         confirmButton: "custom-confirm-button",
+      },
+      showConfirmButton: true,
+    });
+    
+    // Agregar estilos personalizados
+    const style = document.createElement("style");
+    style.innerHTML = `
+      .custom-swal {
+       position: relative;
+       border-radius: 10px;
+       overflow: hidden;
+      }
+      .swal-logo {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      z-index: 10;
+      }
+     .swal-title {
+      margin-top: 15px;
+      font-size: 24px;
+      font-weight: bold;
+      color: #333;
+      letter-spacing: 1px;
+      }
+     .swal-text {
+     font-size: 16px;
+     margin: 10px 0 25px;
+     color: #555;
+     }
+    
+    .swal2-actions {
+     margin-top: 0 !important;
+     gap: 15px;
+    }
+    .swal2-confirm, .swal2-cancel {
+    padding: 12px 24px !important;
+     font-size: 15px !important;
+     font-weight: 500 !important;
+    border-radius: 4px !important;
+    background-color: #164474 !important; 
+    border-color: #164474 !important;
+    color: white !important;
+    
+    min-width: 120px !important;
+    }`;
+    document.head.appendChild(style);
     isValid = false;
   }
 
   if (!this.admin.ApPaterno) {
     this.errorMessage = 'El apellido paterno es obligatorio.';
-    Swal.fire('Error', this.errorMessage, 'error');
+    Swal.fire({
+      html: `<div class="swal-logo">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 70" width="120">
+            <rect x="2" y="2" width="36" height="36" fill="none" stroke="#333" stroke-width="2"/>
+            <rect x="6" y="6" width="28" height="28" fill="none" stroke="#333" stroke-width="1"/>
+            <text x="20" y="28" font-family="Arial, sans-serif" font-weight="500" font-size="20" fill="#333" text-anchor="middle">M</text>
+            <text x="48" y="30" font-family="Arial, sans-serif" font-weight="normal" font-size="16" fill="#999">MOVICASH</text>
+          </svg>
+        </div>
+        <h2 class="swal-title">ERROR</h2>
+        <p class="swal-text">El apellido paterno es obligatorio.</p>`,
+      icon: "error",
+      customClass: {
+        popup: "custom-swal",
+         confirmButton: "custom-confirm-button",
+      },
+      showConfirmButton: true,
+    });
+    
+    // Agregar estilos personalizados
+    const style = document.createElement("style");
+    style.innerHTML = `
+      .custom-swal {
+       position: relative;
+       border-radius: 10px;
+       overflow: hidden;
+      }
+      .swal-logo {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      z-index: 10;
+      }
+     .swal-title {
+      margin-top: 15px;
+      font-size: 24px;
+      font-weight: bold;
+      color: #333;
+      letter-spacing: 1px;
+      }
+     .swal-text {
+     font-size: 16px;
+     margin: 10px 0 25px;
+     color: #555;
+     }
+    
+    .swal2-actions {
+     margin-top: 0 !important;
+     gap: 15px;
+    }
+    .swal2-confirm, .swal2-cancel {
+    padding: 12px 24px !important;
+     font-size: 15px !important;
+     font-weight: 500 !important;
+    border-radius: 4px !important;
+    background-color: #164474 !important; 
+    border-color: #164474 !important;
+    color: white !important;
+    
+    min-width: 120px !important;
+    }`;
+    document.head.appendChild(style);
     isValid = false;
   }
 
   if (!this.admin.ApMaterno) {
     this.errorMessage = 'El apellido materno es obligatorio.';
-    Swal.fire('Error', this.errorMessage, 'error');
+    Swal.fire({
+      html: `<div class="swal-logo">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 70" width="120">
+            <rect x="2" y="2" width="36" height="36" fill="none" stroke="#333" stroke-width="2"/>
+            <rect x="6" y="6" width="28" height="28" fill="none" stroke="#333" stroke-width="1"/>
+            <text x="20" y="28" font-family="Arial, sans-serif" font-weight="500" font-size="20" fill="#333" text-anchor="middle">M</text>
+            <text x="48" y="30" font-family="Arial, sans-serif" font-weight="normal" font-size="16" fill="#999">MOVICASH</text>
+          </svg>
+        </div>
+        <h2 class="swal-title">ERROR</h2>
+        <p class="swal-text">El apelldo materno es obligatorio.</p>`,
+      icon: "error",
+      customClass: {
+        popup: "custom-swal",
+         confirmButton: "custom-confirm-button",
+      },
+      showConfirmButton: true,
+    });
+    
+    // Agregar estilos personalizados
+    const style = document.createElement("style");
+    style.innerHTML = `
+      .custom-swal {
+       position: relative;
+       border-radius: 10px;
+       overflow: hidden;
+      }
+      .swal-logo {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      z-index: 10;
+      }
+     .swal-title {
+      margin-top: 15px;
+      font-size: 24px;
+      font-weight: bold;
+      color: #333;
+      letter-spacing: 1px;
+      }
+     .swal-text {
+     font-size: 16px;
+     margin: 10px 0 25px;
+     color: #555;
+     }
+    
+    .swal2-actions {
+     margin-top: 0 !important;
+     gap: 15px;
+    }
+    .swal2-confirm, .swal2-cancel {
+    padding: 12px 24px !important;
+     font-size: 15px !important;
+     font-weight: 500 !important;
+    border-radius: 4px !important;
+    background-color: #164474 !important; 
+    border-color: #164474 !important;
+    color: white !important;
+    
+    min-width: 120px !important;
+    }`;
+    document.head.appendChild(style);
     isValid = false;
   }
 
   // Validar si el Correo Electrónico está vacío o es inválido
   if (!this.admin.CorreoElectronico || !/\S+@\S+\.\S+/.test(this.admin.CorreoElectronico)) {
     this.errorMessage = 'El correo electrónico debe ser válido.';
-    Swal.fire('Error', this.errorMessage, 'error');
+    Swal.fire({
+      html: `<div class="swal-logo">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 70" width="120">
+            <rect x="2" y="2" width="36" height="36" fill="none" stroke="#333" stroke-width="2"/>
+            <rect x="6" y="6" width="28" height="28" fill="none" stroke="#333" stroke-width="1"/>
+            <text x="20" y="28" font-family="Arial, sans-serif" font-weight="500" font-size="20" fill="#333" text-anchor="middle">M</text>
+            <text x="48" y="30" font-family="Arial, sans-serif" font-weight="normal" font-size="16" fill="#999">MOVICASH</text>
+          </svg>
+        </div>
+        <h2 class="swal-title">ERROR</h2>
+        <p class="swal-text">El correo electronico no es valido o ya esta registrado.</p>`,
+      icon: "error",
+      customClass: {
+        popup: "custom-swal",
+         confirmButton: "custom-confirm-button",
+      },
+      showConfirmButton: true,
+    });
+    
+    // Agregar estilos personalizados
+    const style = document.createElement("style");
+    style.innerHTML = `
+      .custom-swal {
+       position: relative;
+       border-radius: 10px;
+       overflow: hidden;
+      }
+      .swal-logo {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      z-index: 10;
+      }
+     .swal-title {
+      margin-top: 15px;
+      font-size: 24px;
+      font-weight: bold;
+      color: #333;
+      letter-spacing: 1px;
+      }
+     .swal-text {
+     font-size: 16px;
+     margin: 10px 0 25px;
+     color: #555;
+     }
+    
+    .swal2-actions {
+     margin-top: 0 !important;
+     gap: 15px;
+    }
+    .swal2-confirm, .swal2-cancel {
+    padding: 12px 24px !important;
+     font-size: 15px !important;
+     font-weight: 500 !important;
+    border-radius: 4px !important;
+    background-color: #164474 !important; 
+    border-color: #164474 !important;
+    color: white !important;
+    
+    min-width: 120px !important;
+    }`;
+    document.head.appendChild(style);
     isValid = false;
   }
 
     return isValid;
   }
     
-  alertaEliminar(admin:any){
-  Swal.fire({
-    title: 'ADVERTENCIA',
-    text: 'Esta accion no puede revertirce',
-    imageUrl: 'advertencia.svg',
-    imageWidth: 80,  //Ancho
-    imageHeight: 80, // Alto
-    showCancelButton: true,
-    confirmButtonColor: '#000000',
-    cancelButtonColor: '#164474',
-    confirmButtonText: 'Sí, eliminarlo',
-    cancelButtonText: 'Cancelar'
-  }).then((result) => {
-    if (result.isConfirmed) {
-      this.deleteAdmin(admin)
-    }
-  });
-}
+  advetenciaeliminado(admin: any) {
+    Swal.fire({
+   customClass: {
+     popup: "custom-swal", 
+   },
+   html: `
+     <div class="swal-logo">
+       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 70" width="120">
+         <rect x="2" y="2" width="36" height="36" fill="none" stroke="#333" stroke-width="2"/>
+         <rect x="6" y="6" width="28" height="28" fill="none" stroke="#333" stroke-width="1"/>
+         <text x="20" y="28" font-family="Arial, sans-serif" font-weight="500" font-size="20" fill="#333" text-anchor="middle">M</text>
+         <text x="48" y="30" font-family="Arial, sans-serif" font-weight="normal" font-size="16" fill="#999">MOVICASH</text>
+       </svg>
+     </div>
+     <img src="advertencia.svg" width="80" height="80" style="margin-top:20px; margin-bottom:10px;" />
+     <h2 class="swal-title">ADVERTENCIA</h2>
+     <p class="swal-text">Esta Acción NO Puede Revertirse</p>
+   `,
+   width: 400, // Ancho fijo para el modal
+   padding: "2rem",
+   showCancelButton: true,
+   confirmButtonColor: "#000000",
+   cancelButtonColor: "#164474",
+   confirmButtonText: "Eliminarlo",
+   cancelButtonText: "Cancelar",
+   buttonsStyling: true,
+   reverseButtons: false, // Botón de cancelar a la izquierda
+ }).then((result) => {
+   if (result.isConfirmed) {
+     this.deleteAdmin(admin);
+   }
+ });
+ 
+ // Agregar estilos personalizados
+ const style = document.createElement("style");
+ style.innerHTML = `
+ 
+   .custom-swal {
+     position: relative;
+     border-radius: 10px;
+     overflow: hidden;
+   }
+   .swal-logo {
+     position: absolute;
+     top: 15px;
+     left: 15px;
+     z-index: 10;
+   }
+   .swal-title {
+     margin-top: 15px;
+     font-size: 24px;
+     font-weight: bold;
+     color: #333;
+     letter-spacing: 1px;
+   }
+   .swal-text {
+     font-size: 16px;
+     margin: 10px 0 25px;
+     color: #555;
+   }
+ 
+   .swal2-actions {
+     margin-top: 0 !important;
+     gap: 15px;
+   }
+   .swal2-confirm, .swal2-cancel {
+     padding: 12px 24px !important;
+     font-size: 15px !important;
+     font-weight: 500 !important;
+     border-radius: 4px !important;
+     min-width: 120px !important;
+   }
+ `;
+ document.head.appendChild(style);
+ 
+   }
 
   deleteAdmin(admin: any) {
     if (!admin.RFC) {
       console.error('Error: No se proporcionó un RFC válido.');
+      Swal.fire({
+        html: `<div class="swal-logo">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 70" width="120">
+              <rect x="2" y="2" width="36" height="36" fill="none" stroke="#333" stroke-width="2"/>
+              <rect x="6" y="6" width="28" height="28" fill="none" stroke="#333" stroke-width="1"/>
+              <text x="20" y="28" font-family="Arial, sans-serif" font-weight="500" font-size="20" fill="#333" text-anchor="middle">M</text>
+              <text x="48" y="30" font-family="Arial, sans-serif" font-weight="normal" font-size="16" fill="#999">MOVICASH</text>
+            </svg>
+          </div>
+          <h2 class="swal-title">ERROR</h2>
+          <p class="swal-text">El administrador no pudo ser borrado.</p>`,
+        icon: "error",
+        customClass: {
+          popup: "custom-swal",
+           confirmButton: "custom-confirm-button",
+        },
+        showConfirmButton: true,
+      });
+      
+      // Agregar estilos personalizados
+      const style = document.createElement("style");
+      style.innerHTML = `
+        .custom-swal {
+         position: relative;
+         border-radius: 10px;
+         overflow: hidden;
+        }
+        .swal-logo {
+        position: absolute;
+        top: 15px;
+        left: 15px;
+        z-index: 10;
+        }
+       .swal-title {
+        margin-top: 15px;
+        font-size: 24px;
+        font-weight: bold;
+        color: #333;
+        letter-spacing: 1px;
+        }
+       .swal-text {
+       font-size: 16px;
+       margin: 10px 0 25px;
+       color: #555;
+       }
+      
+      .swal2-actions {
+       margin-top: 0 !important;
+       gap: 15px;
+      }
+      .swal2-confirm, .swal2-cancel {
+      padding: 12px 24px !important;
+       font-size: 15px !important;
+       font-weight: 500 !important;
+      border-radius: 4px !important;
+      background-color: #164474 !important; 
+      border-color: #164474 !important;
+      color: white !important;
+      
+      min-width: 120px !important;
+      }`;
+      document.head.appendChild(style);
       return;
     }
   
@@ -182,21 +791,139 @@ export class PantallaGestionAdminComponent implements OnInit {
       () => {
         console.log(`Administrador ${admin.NombrePersonal} eliminado correctamente.`);
         Swal.fire({
-          title: '¡Eliminación Exitosa!',
-          text: `El administrador ${admin.NombrePersonal} ${admin.ApPaterno} (${admin.RFC}) ha sido eliminado correctamente.`,
-          icon: 'success',
-          confirmButtonColor: '#000000',
-          confirmButtonText: 'Aceptar'
-        }).then(() => {
-          this.loadAdmins(); // Recargar la lista después de confirmar
+          html: `<div class="swal-logo">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 70" width="120">
+                <rect x="2" y="2" width="36" height="36" fill="none" stroke="#333" stroke-width="2"/>
+                <rect x="6" y="6" width="28" height="28" fill="none" stroke="#333" stroke-width="1"/>
+                <text x="20" y="28" font-family="Arial, sans-serif" font-weight="500" font-size="20" fill="#333" text-anchor="middle">M</text>
+                <text x="48" y="30" font-family="Arial, sans-serif" font-weight="normal" font-size="16" fill="#999">MOVICASH</text>
+              </svg>
+            </div>
+            <h2 class="swal-title">ÉXITO</h2>
+            <p class="swal-text">Administrador eliminado correctamente</p>`,
+          icon: "success",
+          customClass: {
+            popup: "custom-swal",
+             confirmButton: "custom-confirm-button",
+          },
+          showConfirmButton: true,
         });
-      },
+
+        // Agregar estilos personalizados
+        const style = document.createElement("style");
+        style.innerHTML = `
+          .custom-swal {
+           position: relative;
+           border-radius: 10px;
+           overflow: hidden;
+          }
+          .swal-logo {
+          position: absolute;
+          top: 15px;
+          left: 15px;
+          z-index: 10;
+          }
+         .swal-title {
+          margin-top: 15px;
+          font-size: 24px;
+          font-weight: bold;
+          color: #333;
+          letter-spacing: 1px;
+          }
+         .swal-text {
+         font-size: 16px;
+         margin: 10px 0 25px;
+         color: #555;
+         }
+
+        .swal2-actions {
+         margin-top: 0 !important;
+         gap: 15px;
+        }
+        .swal2-confirm, .swal2-cancel {
+        padding: 12px 24px !important;
+         font-size: 15px !important;
+         font-weight: 500 !important;
+    border-radius: 4px !important;
+    background-color: #164474 !important; 
+border-color: #164474 !important;
+color: white !important;
+    
+    min-width: 120px !important;
+  }`;
+  document.head.appendChild(style);
+  setTimeout(() => {
+    this.loadAdmins(); // Recargar la lista después de confirmar
+  }, 0);
+},
       (error) => {
         console.error(`Error al eliminar administrador ${admin.NombrePersonal}:`, error);
-        Swal.fire('Error', 'No se pudo eliminar el administrador', 'error');
+        Swal.fire({
+          html: `<div class="swal-logo">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 70" width="120">
+                <rect x="2" y="2" width="36" height="36" fill="none" stroke="#333" stroke-width="2"/>
+                <rect x="6" y="6" width="28" height="28" fill="none" stroke="#333" stroke-width="1"/>
+                <text x="20" y="28" font-family="Arial, sans-serif" font-weight="500" font-size="20" fill="#333" text-anchor="middle">M</text>
+                <text x="48" y="30" font-family="Arial, sans-serif" font-weight="normal" font-size="16" fill="#999">MOVICASH</text>
+              </svg>
+            </div>
+            <h2 class="swal-title">ERROR</h2>
+            <p class="swal-text">No se pudo eliminar al administrador</p>`,
+          icon: "error",
+          customClass: {
+            popup: "custom-swal",
+             confirmButton: "custom-confirm-button",
+          },
+          showConfirmButton: true,
+        });
+        
+        // Agregar estilos personalizados
+        const style = document.createElement("style");
+        style.innerHTML = `
+          .custom-swal {
+           position: relative;
+           border-radius: 10px;
+           overflow: hidden;
+          }
+          .swal-logo {
+          position: absolute;
+          top: 15px;
+          left: 15px;
+          z-index: 10;
+          }
+         .swal-title {
+          margin-top: 15px;
+          font-size: 24px;
+          font-weight: bold;
+          color: #333;
+          letter-spacing: 1px;
+          }
+         .swal-text {
+         font-size: 16px;
+         margin: 10px 0 25px;
+         color: #555;
+         }
+        
+        .swal2-actions {
+         margin-top: 0 !important;
+         gap: 15px;
+        }
+        .swal2-confirm, .swal2-cancel {
+        padding: 12px 24px !important;
+         font-size: 15px !important;
+         font-weight: 500 !important;
+        border-radius: 4px !important;
+        background-color: #164474 !important; 
+        border-color: #164474 !important;
+        color: white !important;
+        
+        min-width: 120px !important;
+        }`;
+        document.head.appendChild(style);
       }
     );
   }
+
   
 
   // Actualizamos el método registerAdmin para usar AuthService
@@ -208,15 +935,141 @@ export class PantallaGestionAdminComponent implements OnInit {
         this.loadAdmins();  
         this.closeModal();  
         this.resetForm(); 
-        Swal.fire('Éxito', 'Administrador registrado correctamente', 'success'); 
-      },
-      (error: any) => {  
-        console.error('Error al registrar administrador:', error);
-        this.errorMessage = 'Hubo un error al registrar al administrador. Por favor, inténtelo de nuevo. Posible error el RFC o Correo Electronico';
-        Swal.fire('Error', this.errorMessage, 'error');
-      }
-    );
+        Swal.fire({
+          html: `<div class="swal-logo">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 70" width="120">
+                <rect x="2" y="2" width="36" height="36" fill="none" stroke="#333" stroke-width="2"/>
+                <rect x="6" y="6" width="28" height="28" fill="none" stroke="#333" stroke-width="1"/>
+                <text x="20" y="28" font-family="Arial, sans-serif" font-weight="500" font-size="20" fill="#333" text-anchor="middle">M</text>
+                <text x="48" y="30" font-family="Arial, sans-serif" font-weight="normal" font-size="16" fill="#999">MOVICASH</text>
+              </svg>
+            </div>
+            <h2 class="swal-title">ÉXITO</h2>
+            <p class="swal-text">Administrador registrado correctamente</p>`,
+          icon: "success",
+          customClass: {
+            popup: "custom-swal",
+             confirmButton: "custom-confirm-button",
+          },
+          showConfirmButton: true,
+        });
+
+        // Agregar estilos personalizados
+        const style = document.createElement("style");
+        style.innerHTML = `
+          .custom-swal {
+           position: relative;
+           border-radius: 10px;
+           overflow: hidden;
+          }
+          .swal-logo {
+          position: absolute;
+          top: 15px;
+          left: 15px;
+          z-index: 10;
+          }
+         .swal-title {
+          margin-top: 15px;
+          font-size: 24px;
+          font-weight: bold;
+          color: #333;
+          letter-spacing: 1px;
+          }
+         .swal-text {
+         font-size: 16px;
+         margin: 10px 0 25px;
+         color: #555;
+         }
+
+        .swal2-actions {
+         margin-top: 0 !important;
+         gap: 15px;
+        }
+        .swal2-confirm, .swal2-cancel {
+        padding: 12px 24px !important;
+         font-size: 15px !important;
+         font-weight: 500 !important;
+    border-radius: 4px !important;
+    background-color: #164474 !important; 
+border-color: #164474 !important;
+color: white !important;
+    
+    min-width: 120px !important;
+  }`;
+  document.head.appendChild(style);
+  setTimeout(() => {
+    this.loadAdmins(); // Recargar la lista después de confirmar
+  }, 0);
+},
+(error: any) => {  
+  console.error('Error al registrar administrador:', error);
+  this.errorMessage = 'Hubo un error al registrar al administrador. Por favor, inténtelo de nuevo. Posible error el RFC o Correo Electronico';
+  Swal.fire({
+    html: `<div class="swal-logo">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 70" width="120">
+          <rect x="2" y="2" width="36" height="36" fill="none" stroke="#333" stroke-width="2"/>
+          <rect x="6" y="6" width="28" height="28" fill="none" stroke="#333" stroke-width="1"/>
+          <text x="20" y="28" font-family="Arial, sans-serif" font-weight="500" font-size="20" fill="#333" text-anchor="middle">M</text>
+          <text x="48" y="30" font-family="Arial, sans-serif" font-weight="normal" font-size="16" fill="#999">MOVICASH</text>
+        </svg>
+      </div>
+      <h2 class="swal-title">ERROR</h2>
+      <p class="swal-text">Hubo un error al registrar al administrador. Por favor, inténtelo de nuevo. Posible error el RFC o Correo Electronico.</p>`,
+    icon: "error",
+    customClass: {
+      popup: "custom-swal",
+       confirmButton: "custom-confirm-button",
+    },
+    showConfirmButton: true,
+  });
+  
+  // Agregar estilos personalizados
+  const style = document.createElement("style");
+  style.innerHTML = `
+    .custom-swal {
+     position: relative;
+     border-radius: 10px;
+     overflow: hidden;
+    }
+    .swal-logo {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    z-index: 10;
+    }
+   .swal-title {
+    margin-top: 15px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    letter-spacing: 1px;
+    }
+   .swal-text {
+   font-size: 16px;
+   margin: 10px 0 25px;
+   color: #555;
+   }
+  
+  .swal2-actions {
+   margin-top: 0 !important;
+   gap: 15px;
   }
+  .swal2-confirm, .swal2-cancel {
+  padding: 12px 24px !important;
+   font-size: 15px !important;
+   font-weight: 500 !important;
+  border-radius: 4px !important;
+  background-color: #164474 !important; 
+  border-color: #164474 !important;
+  color: white !important;
+  
+  min-width: 120px !important;
+  }`;
+  document.head.appendChild(style);
+}
+);
+}
+      
 
   // Método para abrir el modal de agregar
   openAddModal() {
@@ -308,3 +1161,10 @@ export class PantallaGestionAdminComponent implements OnInit {
     }
   }
 }
+
+
+
+
+
+
+
