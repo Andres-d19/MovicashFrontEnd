@@ -44,7 +44,8 @@ svg {
   display: flex;
   align-items: center;
   padding: 8px 15px;
-  background-color: #164474;
+  background-color: #113457;
+  background-color: #113457;
   color: white;
   border-radius: 4px;
   cursor: pointer;
@@ -54,7 +55,8 @@ svg {
 }
 
 .logout-btn:hover {
-  background-color: #303f9f; 
+  background-color: #113457; 
+  background-color: #113457; 
   box-shadow: 0 4px 8px rgba(0,0,0,0.3);
 }
 
@@ -218,7 +220,8 @@ mat-divider {
 }
 
 .read-more-btn {
-  background-color:#164474;
+  background-color: #113457;
+  background-color:#113457;
   color: white !important;
   padding: 8px 20px; 
   border-radius: 4px;
@@ -229,6 +232,8 @@ mat-divider {
   font-weight: 500; 
   text-transform: uppercase; 
   letter-spacing: 1px; 
+  height: 45px;
+  height: 45px;
 }
 
 .footer {

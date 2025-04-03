@@ -10,8 +10,8 @@
     </div>
     
     <div class="header-section">
-      <p class="mat-headline-5">Solicitud de Transacción</p>
-      <p class="mat-body-1">Complete todos los campos obligatorios (*)</p>
+      <h1 class="title ">Solicitud de Transacción</h1>
+      <p class="subtitle ">Complete todos los campos obligatorios (*)</p>
     </div>
   </div>
 
@@ -152,9 +152,9 @@
   </div>
 
   <div class="action-buttons">
-    <button mat-button color="warn" (click)="cancelar()">Cancelar</button>
     <button mat-raised-button class="send-soli" (click)="enviarSolicitud()">
       Enviar Solicitud
     </button>
+    <button mat-button class="cancel-soli" (click)="cancelar()">Cancelar</button>
   </div>
 </div>
