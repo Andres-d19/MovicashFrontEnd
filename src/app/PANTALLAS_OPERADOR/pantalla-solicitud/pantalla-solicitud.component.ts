@@ -6,6 +6,8 @@ import { SolicitudService } from '../../services/OPERADORES/solicitud-trans';
 import { AdvertenciaService } from '../../services/advertencia.service';
 import Swal from 'sweetalert2';
 
+
+
 @Component({
   selector: 'app-pantalla-solicitud',
   templateUrl: './pantalla-solicitud.component.html',
