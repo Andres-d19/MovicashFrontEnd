@@ -1,0 +1,322 @@
+<div class="logo-container">
+  <div class="logo">
+      <div class="logo-box">
+          <span>M</span>
+      </div>
+  </div>
+  <div class="brand-name">MOVICASH</div>
+  <h1 class="title">GESTION DE OPERADORES</h1> <!-- Título debajo del logotipo -->
+</div>
+
+
+<!-- Modal de Agregar/Editar Operador Mejorado -->
+<div *ngIf="isModalOpen" class="modal-overlay">
+  <div class="modal-content modal-form">
+    <div class="modal-header">
+      <div class="modal-logo">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 70" width="130">
+          <!-- Contorno externo -->
+          <rect x="2" y="2" width="36" height="36" fill="none" stroke="#333" stroke-width="2"/>
+          <!-- Contorno interno -->
+          <rect x="6" y="6" width="28" height="28" fill="none" stroke="#333" stroke-width="1"/>
+          <!-- Letra M estilizada dentro del cuadro -->
+          <text x="20" y="28" font-family="Arial, sans-serif" font-weight="500" font-size="20" fill="#333" text-anchor="middle">M</text>
+          <!-- Texto MOVICASH más cerca -->
+          <text x="48" y="30" font-family="Arial, sans-serif" font-weight="normal" font-size="16" fill="#999">MOVICASH</text>
+        </svg>
+      </div>
+      <h2>{{ isEditing ? 'Editar Operador' : 'Registrar Operador' }}</h2>
+    </div>
+    
+    <div class="modal-body">
+      <form (ngSubmit)="onSubmit()">
+        <div class="section">
+          <div class="section-title">Datos Personales</div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>RFC <span class="required">*</span></label>
+              <input type="text" [(ngModel)]="operador.RFC" name="RFC" required [disabled]="isEditing">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Nombre(s) <span class="required">*</span></label>
+              <input type="text" [(ngModel)]="operador.NombrePersonal" name="NombrePersonal" required>
+            </div>
+            <div class="form-group">
+              <label>Apellido Paterno <span class="required">*</span></label>
+              <input type="text" [(ngModel)]="operador.ApPaterno" name="ApPaterno" required>
+            </div>
+            <div class="form-group">
+              <label>Apellido Materno</label>
+              <input type="text" [(ngModel)]="operador.ApMaterno" name="ApMaterno">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Correo Electrónico <span class="required">*</span></label>
+              <input type="email" [(ngModel)]="operador.CorreoElectronico" name="CorreoElectronico" required>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Contraseña <span class="required">*</span></label>
+              <div class="password-container">
+                <input [type]="passwordVisible ? 'text' : 'password'" [(ngModel)]="operador.Password" name="Password" required>
+                <button type="button" class="show-password-btn" (click)="togglePasswordVisibility()"> 👁</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section">
+          <div class="section-title">Teléfonos</div>
+          <div *ngFor="let tel of operador.Telefono; let i = index" class="form-row phone-row">
+            <div class="form-group lada-group">
+              <label>Lada <span class="required">*</span></label>
+              <input type="text" [(ngModel)]="tel.Lada" name="Lada{{i}}" required>
+            </div>
+            <div class="form-group phone-group">
+              <label>Teléfono {{ i + 1 }} <span class="required">*</span></label>
+              <input type="text" [(ngModel)]="tel.Numero" name="Telefono{{i}}" required>
+            </div>
+            <div class="phone-actions">
+              <button type="button" class="remove-btn" (click)="removePhone(i)">🗑️</button>
+              <button *ngIf="i === operador.Telefono.length - 1" type="button" class="add-btn" (click)="addPhone()">Agregar</button>
+            </div>
+          </div>
+          <div *ngIf="operador.Telefono.length === 0" class="add-phone-container">
+            <button type="button" class="add-btn" (click)="addPhone()">Agregar Teléfono</button>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="primary-btn">{{ isEditing ? 'Modificar' : 'Agregar' }}</button>
+          <button type="button" class="cancel-btn" (click)="closeModal()">Cancelar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<!-- Modal de Agregar Operador -->
+<div *ngIf="isModalOpen && !isEditing" class="modal-overlay">
+  <div class="modal-content modal-form">
+    <div class="modal-header">
+      <div class="modal-logo">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 70" width="130">
+          <!-- Contorno externo -->
+          <rect x="2" y="2" width="36" height="36" fill="none" stroke="#333" stroke-width="2"/>
+          <!-- Contorno interno -->
+          <rect x="6" y="6" width="28" height="28" fill="none" stroke="#333" stroke-width="1"/>
+          <!-- Letra M estilizada dentro del cuadro -->
+          <text x="20" y="28" font-family="Arial, sans-serif" font-weight="500" font-size="20" fill="#333" text-anchor="middle">M</text>
+          <!-- Texto MOVICASH más cerca -->
+          <text x="48" y="30" font-family="Arial, sans-serif" font-weight="normal" font-size="16" fill="#999">MOVICASH</text>
+        </svg>
+      </div>
+      <h2>Registrar Operador</h2>
+    </div>
+    
+    <div class="modal-body">
+      <form (ngSubmit)="onSubmit()">
+        <div class="section">
+          <div class="section-title">Datos Personales</div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>RFC <span class="required">*</span></label>
+              <input type="text" [(ngModel)]="operador.RFC" name="RFC" required>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Nombre(s) <span class="required">*</span></label>
+              <input type="text" [(ngModel)]="operador.NombrePersonal" name="NombrePersonal" required>
+            </div>
+            <div class="form-group">
+              <label>Apellido Paterno <span class="required">*</span></label>
+              <input type="text" [(ngModel)]="operador.ApPaterno" name="ApPaterno" required>
+            </div>
+            <div class="form-group">
+              <label>Apellido Materno</label>
+              <input type="text" [(ngModel)]="operador.ApMaterno" name="ApMaterno">
+            </div>
+          </div>
+
+          <!-- Fecha de Nacimiento -->
+          <div class="form-row">
+            <div class="form-group">
+              <label>Fecha de Nacimiento <span class="required">*</span></label>
+              <input type="date" [(ngModel)]="operador.FechaNacimiento" name="FechaNacimiento" required>
+            </div>
+            <div class="form-group">
+              <label>Sexo <span class="required">*</span></label>
+              <select [(ngModel)]="operador.Sexo" name="Sexo" required>
+                <option value="M">Masculino</option>
+                <option value="F">Femenino</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Correo Electrónico <span class="required">*</span></label>
+              <input type="email" [(ngModel)]="operador.CorreoElectronico" name="CorreoElectronico" required>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Contraseña <span class="required">*</span></label>
+              <div class="password-container">
+                <input [type]="passwordVisible ? 'text' : 'password'" [(ngModel)]="operador.Password" name="Password" required>
+                <button type="button" class="show-password-btn" (click)="togglePasswordVisibility()"> 👁</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dirección -->
+        <div class="section">
+          <div class="section-title">Dirección</div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Calle <span class="required">*</span></label>
+              <input type="text" [(ngModel)]="operador.Direccion.Calle" name="Calle" required>
+            </div>
+            <div class="form-group">
+              <label>Número Interior</label>
+              <input type="text" [(ngModel)]="operador.Direccion.NumeroInterior" name="NumeroInterior">
+            </div>
+            <div class="form-group">
+              <label>Número Exterior <span class="required">*</span></label>
+              <input type="text" [(ngModel)]="operador.Direccion.NumeroExterior" name="NumeroExterior" required>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Colonia <span class="required">*</span></label>
+              <input type="text" [(ngModel)]="operador.Direccion.Colonia" name="Colonia" required>
+            </div>
+            <div class="form-group">
+              <label>Ciudad <span class="required">*</span></label>
+              <input type="text" [(ngModel)]="operador.Direccion.Ciudad" name="Ciudad" required>
+            </div>
+          </div>
+        </div>
+
+        <div class="section">
+          <div class="section-title">Teléfonos</div>
+          <div *ngFor="let tel of operador.Telefono; let i = index" class="form-row phone-row">
+            <div class="form-group lada-group">
+              <label>Lada <span class="required">*</span></label>
+              <input type="text" [(ngModel)]="tel.Lada" name="Lada{{i}}" required>
+            </div>
+            <div class="form-group phone-group">
+              <label>Teléfono {{ i + 1 }} <span class="required">*</span></label>
+              <input type="text" [(ngModel)]="tel.Numero" name="Telefono{{i}}" required>
+            </div>
+            <div class="phone-actions">
+              <button type="button" class="remove-btn" (click)="removePhone(i)">🗑️</button>
+              <button *ngIf="i === operador.Telefono.length - 1" type="button" class="add-btn" (click)="addPhone()">Agregar</button>
+            </div>
+          </div>
+          <div *ngIf="operador.Telefono.length === 0" class="add-phone-container">
+            <button type="button" class="add-btn" (click)="addPhone()">Agregar Teléfono</button>
+          </div>
+        </div>
+
+        <!-- Estado de Cuenta -->
+        <div class="section">
+          <div class="section-title">Estado de Cuenta</div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Estado <span class="required">*</span></label>
+              <select [(ngModel)]="operador.Estado" name="Estado" required>
+                <option value="Activo">Activo</option>
+                <option value="Inactivo">Inactivo</option>
+                <option value="Bloqueado">Bloqueado</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Fecha de Creación -->
+          <div class="form-row">
+            <div class="form-group">
+              <label>Fecha de Creación <span class="required">*</span></label>
+              <input type="date" [(ngModel)]="operador.FechaCreacion" name="FechaCreacion" required>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="primary-btn">Agregar</button>
+          <button type="button" class="cancel-btn" (click)="closeModal()">Cancelar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+<div class="header-container">
+  <h2 class="list-title">Lista de Operadores</h2>
+  <div class="search-container">
+    <div class="search-box">
+      <input type="text" placeholder="Buscar operador..." [(ngModel)]="searchQuery" (input)="search()">
+      <i class="fa fa-search search-icon"></i>
+    </div>
+    <button class="add-btn" (click)="openModal()">
+      <i class="fa fa-plus"></i> Agregar
+    </button>
+  </div>
+</div>
+
+<!-- Tabla de Operadores -->
+<div class="container">
+  
+  <div class="table-container">
+      <table>
+          <thead>
+              <tr>
+                  <th>RFC</th>
+                  <th>Nombre</th>
+                  <th>Correo</th>
+                  <th>Fecha de Registro</th>
+                  <th>Estado</th>
+                  <th>Acciones</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr *ngFor="let operador of filteredOperadores">
+                  <td>{{ operador.RFC }}</td>
+                  <td>{{ operador.NombrePersonal }} {{ operador.ApPaterno }} {{ operador.ApMaterno }}</td>
+                  <td>{{ operador.CorreoElectronico }}</td>
+                  <td>{{ operador.FechaCreacion | date:'yyyy-MM-dd' }}</td>
+                  <td>{{ operador.Estado }}</td>
+                  <td class="action-buttons">
+                    <button class="edit-btn" (click)="editOperador(operador)">
+                      <i class="fa fa-edit"></i>
+                    </button>
+                      <button class="delete-btn" (click)="advetenciaeliminado(operador)">🗑️</button>
+                  </td>
+              </tr>
+          </tbody>
+      </table>
+  </div>
+</div>

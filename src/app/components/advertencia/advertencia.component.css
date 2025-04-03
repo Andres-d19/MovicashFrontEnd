@@ -1,0 +1,110 @@
+/* Estilos del popup */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+.popup-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;   /* Fija el popup en la pantalla */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;      /* Asegura que ocupe toda la altura de la pantalla */
+  background-color: rgba(255, 255, 255, 0.5);  /* Fondo claro semi-transparente (invertido) */
+  z-index: 9999;     /* Asegura que se muestre encima de otros elementos */
+}
+
+.popup {
+  background-color: #f2f2f2;  /* Fondo claro (invertido) */
+  border: 2px solid #000000;  /* Borde negro como solicitado */
+  border-radius: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 250px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.popup-header {
+  text-align: center;
+  padding: 15px;
+}
+
+/* Estilo para el icono de advertencia */
+.popup-icon {
+  width: 48px;
+  height: 48px;
+  color: #5c61f4;  /* Azul (invertido del amarillo) */
+  margin-bottom: 16px;
+  transition: transform 0.3s ease-in-out;
+  animation: pulseAnimation 1s infinite; /* Animación de pulso */
+}
+
+/* Animación de "pulse" */
+@keyframes pulseAnimation {
+  0% {
+      transform: scale(1);
+  }
+  50% {
+      transform: scale(1.2);
+  }
+  100% {
+      transform: scale(1);
+  }
+}
+
+/* Animación al pasar el mouse */
+.popup-icon:hover {
+  transform: scale(1.2);
+}
+
+.popup-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin: 10px 0;
+  color: #333;
+  text-transform: uppercase;
+}
+
+.popup-message {
+  font-size: 0.875rem;
+  font-weight: bold;
+  padding: 0 8px;
+  font-size: 18px;
+  color: #820303;
+}
+
+.popup-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.popup-button {
+  padding: 8px 16px;
+  font-size: 0.875rem;
+  border-radius: 30px;
+  font-weight: 500;
+  margin: 5px;
+  transition: all 0.3s ease-in-out;
+}
+
+.cancel-btn {
+  background-color: #b5aa97;  /* Color claro (invertido) */
+  color: #1d171f;  /* Texto oscuro (invertido) */
+  border: 2px solid #b5aa97;
+}
+
+.cancel-btn:hover {
+  background-color: #d2c8b7;  /* Color más claro al hover (invertido) */
+  border-color: #000000;  /* Borde negro al hacer hover */
+}

@@ -1,0 +1,160 @@
+<div class="transaction-container mat-elevation-z2">
+  <div class="header-combined">
+    <div class="logo-container">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 70" width="180" height="70">
+        <rect x="2" y="2" width="26" height="26" fill="none" stroke="#333" stroke-width="2"/>
+        <rect x="5" y="5" width="20" height="20" fill="none" stroke="#333" stroke-width="1"/>
+        <text x="15" y="20" font-family="Arial, sans-serif" font-weight="500" font-size="14" fill="#333" text-anchor="middle">M</text>
+        <text x="35" y="25" font-family="Arial, sans-serif" font-weight="normal" font-size="24" fill="#999">MOVICASH</text>
+      </svg>
+    </div>
+    
+    <div class="header-section">
+      <h1 class="title ">Solicitud de Transacción</h1>
+      <p class="subtitle ">Complete todos los campos obligatorios (*)</p>
+    </div>
+  </div>
+
+  <div class="ordenantes-container">
+    <div class="ordenante-section">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Buscar ordenante origen</mat-label>
+        <input
+          matInput
+          placeholder="RFC"
+          [formControl]="busquedaOrigenControl"
+          (keyup.enter)='buscarOrdenantePorRFC("origen")'
+        >
+        <button
+          mat-icon-button
+          matSuffix
+          (click)='buscarOrdenantePorRFC("origen")'
+        >
+          <mat-icon>search</mat-icon>
+        </button>
+      </mat-form-field>
+
+      <mat-card class="info-card">
+        <mat-card-header>
+          <mat-card-title>Información del ordenante</mat-card-title>
+          <mat-card-subtitle>Origen de fondos</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <p>
+            <strong>Nombre:</strong>
+            {{ ordenanteOrigen?.NombreOrdenante || "" }}
+          </p>
+          <p>
+            <strong>Cuenta:</strong>
+            {{ ordenanteOrigen?.NumeroCuenta || "" }}
+          </p>
+          <p>
+            <strong>RFC:</strong>
+            {{ ordenanteOrigen?.RFCOrdenante || "" }}
+          </p>
+          <p>
+            <strong>Saldo:</strong> ${{ ordenanteOrigen?.Saldo || "0" }}
+          </p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <div class="ordenante-section">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Buscar ordenante destino</mat-label>
+        <input
+          matInput
+          placeholder="RFC"
+          [formControl]="busquedaDestinoControl"
+          (keyup.enter)='buscarOrdenantePorRFC("destino")'
+        >
+        <button
+          mat-icon-button
+          matSuffix
+          (click)='buscarOrdenantePorRFC("destino")'
+        >
+          <mat-icon>search</mat-icon>
+        </button>
+      </mat-form-field>
+
+      <mat-card class="info-card">
+        <mat-card-header>
+          <mat-card-title>Información del beneficiario</mat-card-title>
+          <mat-card-subtitle>Destino de fondos</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <p>
+            <strong>Nombre:</strong>
+            {{ ordenanteDestino?.NombreOrdenante || "" }}
+          </p>
+          <p>
+            <strong>Cuenta:</strong>
+            {{ ordenanteDestino?.NumeroCuenta || "" }}
+          </p>
+          <p>
+            <strong>RFC:</strong>
+            {{ ordenanteDestino?.RFCOrdenante || "" }}
+          </p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+
+  <div class="transaction-details">
+    <mat-card>
+      <mat-card-content>
+        <form [formGroup]="transaccionForm" class="transaction-form">
+          <mat-form-field appearance="outline">
+            <mat-label>Tipo de operación</mat-label>
+            <mat-select formControlName="tipo" required>
+              <mat-option value="transferencia">Transferencia</mat-option>
+              <mat-option value="deposito">Depósito</mat-option>
+            </mat-select>
+            <mat-error>Este campo es obligatorio</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Monto</mat-label>
+            <input
+              matInput
+              formControlName="monto"
+              type="number"
+              min="0"
+              required
+            >
+            <span matPrefix>$&nbsp;</span>
+            <mat-error>Ingrese un monto válido</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Concepto</mat-label>
+            <textarea
+              matInput
+              formControlName="concepto"
+              rows="2"
+              required
+              maxlength="100"
+            ></textarea>
+            <mat-hint align="end">{{
+                transaccionForm.get("concepto")?.value
+                ?.length || 0
+              }}/100</mat-hint>
+            <mat-error
+              *ngIf="transaccionForm.get('concepto')?.hasError('required')"
+            >El concepto es obligatorio</mat-error>
+            <mat-error
+              *ngIf="transaccionForm.get('concepto')?.hasError('maxlength')"
+            >Máximo 100 caracteres</mat-error>
+          </mat-form-field>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div class="action-buttons">
+    <button mat-raised-button class="send-soli" (click)="enviarSolicitud()">
+      Enviar Solicitud
+    </button>
+    <button mat-button class="cancel-soli" (click)="cancelar()">Cancelar</button>
+  </div>
+</div>

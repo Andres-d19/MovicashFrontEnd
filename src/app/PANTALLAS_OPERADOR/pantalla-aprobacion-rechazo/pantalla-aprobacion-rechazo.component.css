@@ -1,0 +1,367 @@
+/* Estilos generales */
+.container {
+  max-width: 900px; 
+  margin: auto;
+  padding: 20px;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+
+.header {
+  background-color: #184059;
+  color: white;
+  padding: 15px 20px;
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1100px;
+  margin: auto;
+}
+
+.header-title {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.header-nav .nav-list {
+  list-style: none;
+  display: flex;
+  gap: 15px;
+  margin: 0;
+  padding: 0;
+}
+
+.header-nav .nav-list li {
+  display: inline;
+}
+
+.header-nav .nav-list a {
+  text-decoration: none;
+  color: white;
+  font-size: 16px;
+  transition: color 0.3s ease;
+}
+
+.header-nav .nav-list a:hover {
+  color: #f4a261;
+}
+
+/* Botón Logout */
+.logout-button {
+  background-color: red;
+  color: white;
+  padding: 8px 15px;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.logout-button:hover {
+  background-color: darkred;
+}
+
+/* Contenedor de información */
+.info-container {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+}
+
+.info-container h3 {
+  font-size: 20px;
+  font-weight: bold;
+  color: #184059;
+}
+
+.info-container p {
+  font-size: 14px;
+  margin: 5px 0;
+}
+
+.info-container strong {
+  color: #333;
+}
+
+
+.transacciones-table {
+  width: 100%;  
+  max-width: 800px;  
+  margin: auto; 
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.transacciones-table th, .transacciones-table td {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: left;
+}
+
+.transacciones-table th {
+  background-color: #184059;
+  color: white;
+  font-weight: bold;
+}
+
+.transacciones-table tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.transacciones-table tbody tr:hover {
+  background-color: #e0e0e0;
+  transition: 0.3s ease;
+}
+
+.transacciones-table caption {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #184059;
+}
+
+/* Panel de detalles */
+.details-panel {
+  display: none;
+  margin-top: 20px;
+  background-color: #f9f9f9;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.details-panel.active {
+  display: block;
+}
+
+
+.btn-action {
+  background-color: #D7D7D9;
+  padding: 8px 12px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.btn-action:hover {
+  background-color: #999;
+}
+
+.btn-approve {
+  background-color: green;
+  color: white;
+}
+
+.btn-reject {
+  background-color: red;
+  color: white;
+}
+
+.btn-details {
+  background-color: #f4a261;
+  color: white;
+}
+
+.btn-approve:hover {
+  background-color: darkgreen;
+}
+
+.btn-reject:hover {
+  background-color: darkred;
+}
+
+.btn-details:hover {
+  background-color: #e76f51;
+}
+
+/* Estilos generales */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.transaction-list {
+  margin: 20px;
+}
+
+.transaction {
+  margin-bottom: 10px;
+}
+
+.btn-details {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.btn-details:hover {
+  background-color: #45a049;
+}
+
+
+.modal {
+  display: none; 
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4); 
+}
+
+.modal-content {
+  background-color: white;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+.close-btn {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close-btn:hover,
+.close-btn:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+
+.info-container {
+  display: none; 
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4); 
+}
+
+#transaction-info-container {
+  background-color: white;
+  margin: 10% auto;
+  padding: 20px;
+  width: 80%;
+  max-width: 500px;
+  border: 1px solid #888;
+  border-radius: 5px;
+}
+
+#transaction-info-container h3 {
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+#transaction-info-container p {
+  font-size: 14px;
+  margin: 10px 0;
+}
+
+#transaction-info-container button {
+  display: block;
+  margin: 20px auto;
+  background-color: #184059;
+  color: white;
+  padding: 8px 15px;
+  border: none;
+  border-radius: 5px;
+}
+
+#transaction-info-container button:hover {
+  background-color: #145f7f;
+}
+
+.title {
+  font-size: 36px;
+  font-weight: bold;
+  color: #333;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+}
+
+.subtitle {
+  font-size: 18px;
+  color: #333;
+  margin-bottom: 30px;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.transacciones-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.transacciones-table th,
+.transacciones-table td {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: left;
+}
+
+.btn-action {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  margin-right: 5px;
+  cursor: pointer;
+}
+
+.btn-action:hover {
+  background-color: #0056b3;
+}
+
+.btn-details {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.btn-details:hover {
+  background-color: #1e7e34;
+}
+
+.info-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+
+
+

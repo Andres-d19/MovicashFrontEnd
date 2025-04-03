@@ -1,0 +1,118 @@
+/* Estilos generales */
+.container {
+    max-width: 900px;
+    margin: auto;
+    padding: 20px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  }
+  
+  
+  .header {
+    background-color: #184059; 
+    color: white;
+    padding: 15px 20px;
+  }
+  
+  .header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1100px;
+    margin: auto;
+  }
+  
+  .header-title {
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  
+  .filtro-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    background-color: #eaf2f7; 
+    padding: 10px;
+    border-radius: 5px;
+  }
+  
+  .filtro-container label {
+    font-size: 16px;
+    color: #184059; 
+    font-weight: bold;
+  }
+  
+  .select {
+    padding: 8px;
+    border: 1px solid #184059; 
+    border-radius: 4px;
+    background-color: #f4f9fc; 
+    font-size: 16px;
+    color: #184059;
+  }
+  
+  .select:focus {
+    outline: none;
+    border-color: #145f7f; 
+    background-color: #e1f0f9; 
+  }
+  
+  /* Tabla de transacciones */
+  .transacciones-table {
+    width: 100%;
+    max-width: 800px;
+    margin: auto;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .transacciones-table th, .transacciones-table td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+  }
+  
+  .transacciones-table th {
+    background-color: #184059; 
+    color: white;
+    font-weight: bold;
+  }
+  
+  .transacciones-table tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  .transacciones-table tbody tr:hover {
+    background-color: #e0e0e0;
+    transition: 0.3s ease;
+  }
+  
+  .transacciones-table caption {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #184059;
+  }
+  
+
+  .btn-action {
+    background-color: #007bff; 
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    margin-top: 15px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .btn-action:hover {
+    background-color: #0056b3; 
+  }
+  .error-snack {
+    background-color: #d32f2f;
+    color: white;
+  }
+  
+  

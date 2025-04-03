@@ -1,0 +1,37 @@
+<div class="container">
+    <div class="header">
+      <div class="header-container">
+        <span class="header-title">Historial de Actividades</span>
+      </div>
+    </div>
+  
+    <div class="filtro-container">
+      <label for="rol">Filtrar por rol:</label>
+      <select id="rol" class="select" [(ngModel)]="rolSeleccionado" (change)="cargarHistorial()">
+        <option *ngFor="let rol of roles" [value]="rol">{{ rol }}</option>
+      </select>
+    </div>
+
+  
+    <table class="transacciones-table">
+      <caption>Registros de Actividad</caption>
+      <thead>
+        <tr>
+          <th>RFC</th>
+          <th>Rol</th>
+          <th>Acción</th>
+          <th>Detalles</th>
+          <th>Fecha</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of historial">
+          <td>{{ item.RFC }}</td>
+          <td>{{ item.Rol }}</td>
+          <td>{{ item.Accion }}</td>
+          <td>{{ item.Detalles }}</td>
+          <td>{{ item.Fecha }}</td>
+        </tr>
+      </tbody>
+    </table>
+</div>
