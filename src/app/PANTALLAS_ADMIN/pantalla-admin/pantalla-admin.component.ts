@@ -9,7 +9,7 @@ import { jwtDecode } from 'jwt-decode';
   styleUrls: ['./pantalla-admin.component.css'] 
 })
 export class PantallaAdminComponent {
-  nombreUsuario: string = '[NOMBRE USER]';
+  nombreUsuario: string = 'Usuario';
   constructor(private router: Router, private authService: AuthService) { 
     
  
@@ -18,29 +18,42 @@ export class PantallaAdminComponent {
   ngOnInit(): void {
     this.cargarNombreUsuario();
   }
+
   cargarNombreUsuario(): void {
     const token = localStorage.getItem('token');
-    
     if (token) {
-      try {
-        const decodedToken: any = jwtDecode(token);
-        
-        this.nombreUsuario = decodedToken.NombrePersonal || 
-                            decodedToken.nombrePersonal || 
-                            decodedToken.nombre ||
-                            decodedToken.name ||
-                            this.authService.getUserName() || '';
-        
-        if (!this.nombreUsuario) {
-          const correo = localStorage.getItem('userEmail');
-          if (correo) {
-            this.nombreUsuario = correo.split('@')[0];
-          }
-        }
-      } catch (error) {
-        console.error('Error al decodificar el token:', error);
-      }
+      localStorage.setItem('authToken', token);
     }
+    
+    this.authService.getUserName().subscribe(
+      (response) => {
+        console.log('Respuesta del servidor:', response);
+        
+        if (response && response.nombreUsuario) {
+          // La respuesta contiene un array de objetos
+          if (Array.isArray(response.nombreUsuario) && response.nombreUsuario.length > 0) {
+            const primerUsuario = response.nombreUsuario[0];
+            
+            // Extraer el NombrePersonal del primer elemento del array
+            if (primerUsuario && primerUsuario.NombrePersonal) {
+              this.nombreUsuario = primerUsuario.NombrePersonal;
+            } else {
+              this.nombreUsuario = 'Usuario';
+            }
+          } else {
+            this.nombreUsuario = 'Usuario';
+          }
+        } else {
+          this.nombreUsuario = 'Usuario';
+        }
+        
+        console.log('Nombre de usuario establecido:', this.nombreUsuario);
+      },
+      (error) => {
+        console.error('Error al obtener el nombre del usuario:', error);
+        this.nombreUsuario = 'Usuario';
+      }
+    );
   }
   
  
