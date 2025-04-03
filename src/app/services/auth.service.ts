@@ -21,17 +21,23 @@ export class AuthService {
         catchError(this.handleError)
       );
   }
-  //obtiene el nombre del token solo es temporal y no afecata en nada, solo esta obteniedno el tokes y mandadado el nombre a otro componente
-  getUserName(): string | null {
-    const token = this.getToken();
-    if (token) {
-      const cuerpoDeToken = this.decodeToken(token);
-      console.log('Payload completo:', cuerpoDeToken);
-      return cuerpoDeToken?.NombrePersonal  || null;
+
+  getUserName(): Observable<any> {
+    const token = this.getToken() || localStorage.getItem('token');
+    
+    if (!token) {
+      return throwError('No hay token de autenticación');
     }
-    return null;
+    
+    const headers = {
+      'Authorization': `Bearer ${token}`
+    };
+    
+    return this.http.get<any>(`${this.apiUrl}/infoPersonal`, { headers })
+      .pipe(
+        catchError(this.handleError)
+      );
   }
- 
   
   // Método para verificar el código de verificación y obtener el token
   verificarCodigo(correo: string, codigo: string){
