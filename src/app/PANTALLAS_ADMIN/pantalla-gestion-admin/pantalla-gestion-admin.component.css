@@ -410,18 +410,18 @@ form {
 
 
 
-.input-container {
+.input-containerr {
   position: relative;
 }
 
-.input-container input,
-.input-container select {
+.input-containerr input,
+.input-containerr select {
     width: 100%;
     padding: 10px 12px;
     font-size: 14px;
     border: 1px solid #ddd;
     border-radius: 4px;
-    background-color: #fafafa;
+    background-color: #d5d5d5;
     transition: border-color 0.2s ease;
 }
 

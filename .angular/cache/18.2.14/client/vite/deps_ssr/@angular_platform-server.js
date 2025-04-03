@@ -2,18 +2,18 @@ import { createRequire } from 'module';const require = createRequire(import.meta
 import {
   NoopAnimationsModule,
   provideNoopAnimations
-} from "./chunk-ZTCRWUAK.js";
+} from "./chunk-RX6L4COT.js";
+import "./chunk-JVJWEVYX.js";
 import {
   BrowserDomAdapter,
   BrowserModule,
   EVENT_MANAGER_PLUGINS,
   EventManagerPlugin
-} from "./chunk-VED7U6UB.js";
+} from "./chunk-BWZM7H7M.js";
 import {
   HTTP_ROOT_INTERCEPTOR_FNS,
   HttpClientModule
-} from "./chunk-IXNWETZX.js";
-import "./chunk-KWRNYKCA.js";
+} from "./chunk-U7VR4EYV.js";
 import {
   DOCUMENT,
   NullViewportScroller,
@@ -23,7 +23,7 @@ import {
   XhrFactory,
   getDOM,
   setRootDomAdapter
-} from "./chunk-OIIWII42.js";
+} from "./chunk-FBMT6VM5.js";
 import {
   ALLOW_MULTIPLE_PLATFORMS,
   APP_ID,
@@ -56,7 +56,7 @@ import {
   ɵɵdefineInjector,
   ɵɵdefineNgModule,
   ɵɵinject
-} from "./chunk-2FSAHAZ4.js";
+} from "./chunk-3AJPYROH.js";
 import {
   require_cjs
 } from "./chunk-5IW5ZEPE.js";
