@@ -58,7 +58,7 @@ form {
 
 label {
   font-weight: bold;
-  color: #555;
+  color: #000000;
   display: block;
   margin-bottom: 5px;
   margin-left: 100px;
@@ -98,7 +98,7 @@ button.btn-delete:hover {
 button {
   width: 70%;
   padding: 12px;
-  background-color: #262929;
+  background-color: #3f51b5;
   color: white;
   font-size: 16px;
   border: none;
@@ -108,7 +108,7 @@ button {
 }
 
 button:disabled {
-  background-color: #ccc;
+  background-color: #3f51b5;
 }
 
 small {
