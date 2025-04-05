@@ -1,51 +1,57 @@
 import { Component } from '@angular/core';
-import { ActivityService } from '../../services/ADMINISTRADOR/bitacoraInicioCierreSecion';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { ActivityService } from '../../services/ADMINISTRADOR/bitacoraInicioCierreSecion.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-pantalla-bitacora-inicio-cierre',
   templateUrl: './pantalla-bitacora-inicio-cierre.component.html',
-  styleUrl: './pantalla-bitacora-inicio-cierre.component.css'
+  styleUrls: ['./pantalla-bitacora-inicio-cierre.component.css']
 })
 export class PantallaBitacoraInicioCierreComponent {
   historial: any[] = [];
   roles: string[] = ['Administrador', 'Operador', 'Ordenante'];
   rolSeleccionado: string = 'Administrador';
-  constructor(private activityService: ActivityService, private snackBar: MatSnackBar) {}
+
+  constructor(private activityService: ActivityService) {}
 
   ngOnInit(): void {
     this.cargarHistorial();
   }
-  
-  cargarHistorial() {
 
+  cargarHistorial() {
     console.log("Se ejecutó cargarHistorial()");
 
-    this.activityService.obtenerHistorial(this.rolSeleccionado).subscribe(
-      (data: any[]) => {
+    this.activityService.obtenerHistorial(this.rolSeleccionado).subscribe({
+      next: (data: any[]) => {
         console.log("Datos recibidos:", data);
-        if (data.length === 0) {
-          this.snackBar.open('No hay registros disponibles.', 'Cerrar', {
-            duration: 5000,
-            panelClass: ['error-snack']
+        if (!Array.isArray(data) || data.length === 0) {
+          Swal.fire({
+            icon: 'info',
+            title: 'Sin registros',
+            text: 'No hay registros disponibles para este rol.',
+            confirmButtonColor: '#3085d6'
           });
+          this.historial = [];
+          return;
         }
+
         this.historial = data.map(item => ({
           RFC: item.RFC,
           Rol: item.Rol,
-          Accion: item.Acciones.Accion,  
-          Detalles: item.Acciones.Detalles,  
-          Fecha: item.Acciones.Fecha  
+          Accion: item.Acciones?.Accion ?? 'No especificada',
+          Detalles: item.Acciones?.Detalles ?? 'No disponibles',
+          Fecha: item.Acciones?.Fecha ?? 'Sin fecha'
         }));
       },
-      error => {
+      error: (error) => {
         console.error("Error al obtener historial:", error);
-        this.snackBar.open('Error al obtener el historial. Intenta de nuevo.', 'Cerrar', {
-          duration: 5000,
-          panelClass: ['error-snack']
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'No se pudo cargar el historial. Intente de nuevo.',
+          confirmButtonColor: '#d33'
         });
       }
-    );
+    });
   }
-  
 }

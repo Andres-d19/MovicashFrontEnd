@@ -1,17 +1,40 @@
 <div class="container">
+  <div class="logo-container">
+    <div class="logo">
+      <div class="logo-box">
+        <span>M</span>
+      </div>
+    </div>
+    <div class="brand-name">MOVICASH</div>
+  </div>
   <!-- Header -->
   <div class="header">
     <div class="header-container">
-      <h1 class="header-title">Aprobación/Rechazo de Transacciones</h1>
+      <h1 class="header-title">APROBACIÓN / RECHAZO DE TRANSACCIONES</h1>
+      <h3 class="subtitle">Listado de Transacciones Pendientes</h3>
     </div>
   </div>
+
+  <!-- Buscador por id -->
+  <div class="buscar-container">
+    <label for="buscarId">Buscar por ID de Transacción:</label>
+    <input id="buscarId" type="text" [(ngModel)]="idBusqueda" placeholder="Ingrese el ID">
+    <button (click)="buscarTransaccion()">Buscar</button>
+  </div>
+  
+    <!-- Filtro para las transacciones Aprobada, Rechazada, Pendiente -->
+    <div class="filtro-container">
+      <label for="estado">Filtrar por estado:</label>
+      <select id="estado" class="select" [(ngModel)]="estadoSeleccionado" (change)="cargarTransaccionesPorEstado(estadoSeleccionado)">
+        <option *ngFor="let estado of estados" [value]="estado">{{ estado }}</option>
+      </select>
+    </div>
 
   <!-- Formulario de transacciones -->
   <div class="contenedorLogin" id="transaccionesForm">
     <div class="section">
-      <h3>Listado de Transacciones Pendientes</h3>
       <table class="transacciones-table">
-        <caption>Listado de Transacciones Pendientes</caption>
+        <caption></caption>
         <thead>
           <tr>
             <th>ID Transacción</th>
@@ -28,14 +51,15 @@
           <tr *ngFor="let transaccion of transaccionesPendientes">
             <td>{{ transaccion.IdComprobante }}</td>
             <td>{{ transaccion.NombreCompletoOrdenante }}</td>
-            <td>{{ transaccion.Monto | currency }}</td>
+            <td>{{ isNumber(transaccion.Monto) ? (transaccion.Monto | currency) : transaccion.Monto }}</td>
             <td>{{ transaccion.Tipo || 'N/A' }}</td>
             <td>{{ formatDate(transaccion.Fecha) }}</td>
             <td>
-              <button class="btn-action" (click)="aprobarTransaccion(transaccion.IdComprobante)">
+              <!-- Solo muestra los botones si el estado de la transacción es 'Pendiente' -->
+              <button *ngIf="transaccion.Estado === 'Pendiente'" class="btn-action" (click)="aprobarTransaccion(transaccion.IdComprobante)">
                 Aprobar
               </button>
-              <button class="btn-action" (click)="rechazarTransaccion(transaccion.IdComprobante)">
+              <button *ngIf="transaccion.Estado === 'Pendiente'" class="btn-action" (click)="rechazarTransaccion(transaccion.IdComprobante)">
                 Rechazar
               </button>
             </td>
@@ -51,15 +75,63 @@
   </div>
 </div>
 
-<!-- Detalles de la transacción -->
-<div *ngIf="modalVisible" class="info-container">
-  <h3>Resumen de Transacción</h3>
-  <p><strong>ID Transacción:</strong> {{ transactionDetails?.IdComprobante }}</p>
-  <p><strong>Usuario:</strong> {{ transactionDetails?.NombreCompletoOrdenante }}</p>
-  <p><strong>Monto:</strong> {{ transactionDetails?.Monto | currency }}</p>
-  <p><strong>Tipo de Transacción:</strong> {{ transactionDetails?.Tipo || 'N/A' }}</p>
-  <p><strong>Fecha y Hora de Solicitud:</strong> {{ formatDate(transactionDetails?.Fecha) }}</p>
-  <p><strong>Estado:</strong> {{ transactionDetails?.Estado }}</p>
-  <p><strong>Concepto:</strong> {{ transactionDetails?.Concepto }}</p>
-  <button class="btn-action" (click)="closeModal()">Cerrar</button>
+<!-- Modal de Transacciones con solo el logo -->
+<div *ngIf="modalVisible" class="modal-overlay" (click)="closeModal()">
+  <div class="modal-content transaction-modal" (click)="$event.stopPropagation()">
+    <!-- Encabezado con Logo -->
+    <div class="modal-header">
+      <div class="modal-logo">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 70" width="130">
+          <rect x="2" y="2" width="36" height="36" fill="none" stroke="#333" stroke-width="2"/>
+          <rect x="6" y="6" width="28" height="28" fill="none" stroke="#333" stroke-width="1"/>
+          <text x="20" y="28" font-family="Arial, sans-serif" font-weight="500" font-size="20" fill="#333" text-anchor="middle">M</text>
+          <text x="48" y="30" font-family="Arial, sans-serif" font-weight="normal" font-size="16" fill="#999">MOVICASH</text>
+        </svg>
+      </div>
+      <h2 class="modal-title">Resumen de Transacción</h2>
+    </div>
+
+    <!-- Cuerpo del Modal -->
+<div class="modal-content-container">
+
+  <!-- Sección: Detalles de la Transacción -->
+  <div class="modal-section">
+    <h3 class="section-title">Detalles de la Transacción</h3>
+    <p><strong>ID Transacción:</strong> {{ transactionDetails?.IdComprobante }}</p>
+    <p><strong>Clave de Rastreo:</strong> {{ transactionDetails?.ClaveRastreo }}</p>
+    <p><strong>Tipo de Transacción:</strong> {{ transactionDetails?.Tipo || 'N/A' }}</p>
+    <p><strong>Estado:</strong> {{ transactionDetails?.Estado || 'Pendiente' }}</p>
+    <p><strong>Fecha y Hora de Solicitud:</strong> {{ formatDate(transactionDetails?.Fecha) }}</p>
+    <p><strong>Concepto:</strong> {{ transactionDetails?.Concepto || 'Sin concepto' }}</p>
+    <p><strong>Monto:</strong> 
+      {{ isNumber(transactionDetails?.Monto) ? (transactionDetails?.Monto | currency) : transactionDetails?.Monto }}
+    </p>
+  </div>
+
+  <!-- Sección: Ordenante -->
+  <div class="modal-section">
+    <h3 class="section-title">Ordenante</h3>
+    <p><strong>Número de Cuenta:</strong> {{ transactionDetails?.NumeroCuentaOrdenante }}</p>
+    <p><strong>Nombre:</strong> {{ transactionDetails?.NombreCompletoOrdenante }}</p>
+  </div>
+
+  <!-- Sección: Beneficiario -->
+  <div class="modal-section">
+    <h3 class="section-title">Beneficiario</h3>
+    <p><strong>Número de Cuenta:</strong> {{ transactionDetails?.NumeroCuentaBeneficiario }}</p>
+    <p><strong>Nombre:</strong> {{ transactionDetails?.NombreCompletoBeneficiario }}</p>
+  </div>
+
+  <!-- Sección: Operador -->
+  <div class="modal-section">
+    <h3 class="section-title">Operador</h3>
+    <p><strong>RFC:</strong> {{ transactionDetails?.RFCOperador }}</p>
+    <p><strong>Nombre:</strong> {{ transactionDetails?.NombreCompletoOperador }}</p>
+  </div>
+
+  <!-- Botones -->
+  <div class="button-group">
+    <button type="button" class="btn-cerrar" (click)="closeModal()">Cerrar</button>
+  </div>
 </div>
+
