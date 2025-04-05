@@ -1,37 +1,49 @@
 <div class="container">
-    <div class="header">
-      <div class="header-container">
-        <span class="header-title">Historial de Actividades</span>
+  <div class="logo-container">
+    <div class="logo">
+      <div class="logo-box">
+        <span>M</span>
       </div>
     </div>
-  
-    <div class="filtro-container">
-      <label for="rol">Filtrar por rol:</label>
-      <select id="rol" class="select" [(ngModel)]="rolSeleccionado" (change)="cargarHistorial()">
-        <option *ngFor="let rol of roles" [value]="rol">{{ rol }}</option>
-      </select>
-    </div>
+    <div class="brand-name">MOVICASH</div>
+  </div>
 
-  
-    <table class="transacciones-table">
-      <caption>Registros de Actividad</caption>
-      <thead>
-        <tr>
-          <th>RFC</th>
-          <th>Rol</th>
-          <th>Acción</th>
-          <th>Detalles</th>
-          <th>Fecha</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let item of historial">
-          <td>{{ item.RFC }}</td>
-          <td>{{ item.Rol }}</td>
-          <td>{{ item.Accion }}</td>
-          <td>{{ item.Detalles }}</td>
-          <td>{{ item.Fecha }}</td>
-        </tr>
-      </tbody>
-    </table>
+  <!-- Título centrado -->
+  <div class="header">
+    <div class="header-container">
+      <h1 class="header-title">Historial de Actividades</h1>
+    </div>
+  </div>
+
+  <!-- Subtítulo con estilo -->
+  <div class="subtitle">Registro de Actividad</div>
+
+  <div class="filtro-container">
+    <label for="rol">Filtrar por rol:</label>
+    <select id="rol" class="select" [(ngModel)]="rolSeleccionado" (change)="cargarHistorial()">
+      <option *ngFor="let rol of roles" [value]="rol">{{ rol }}</option>
+    </select>
+  </div>
+
+  <table class="transacciones-table">
+    <caption></caption>
+    <thead>
+      <tr>
+        <th>RFC</th>
+        <th>Rol</th>
+        <th>Acción</th>
+        <th>Detalles</th>
+        <th>Fecha</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of historial">
+        <td>{{ item.RFC }}</td>
+        <td>{{ item.Rol }}</td>
+        <td>{{ item.Accion }}</td>
+        <td>{{ item.Detalles }}</td>
+        <td>{{ item.Fecha }}</td>
+      </tr>
+    </tbody>
+  </table>
 </div>
