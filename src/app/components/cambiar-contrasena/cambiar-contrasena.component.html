@@ -1,0 +1,94 @@
+
+
+<div class="container">
+    <div class="logo-container">
+        <div class="logo">
+            <div class="logo-box">
+                <span>M</span>
+            </div>
+        </div>
+        <div class="brand-name">MOVICASH</div>
+    </div>
+
+    <h1 class="title">CAMBIO DE CONTRASEÑA</h1>
+    <p class="subtitle">Actualiza tu contraseña temporal</p>
+
+    <div class="form-container">
+        <form [formGroup]="updatePasswordForm" (ngSubmit)="actualizarPassword()">
+            
+          
+
+            <div class="form-group">
+                <label for="tempPassword">Contraseña Temporal</label>
+                <div class="password-input-wrapper">
+                    <input 
+                        id="tempPassword"
+                        [type]="showTempPassword ? 'text' : 'password'"
+                        formControlName="tempPassword"
+                        placeholder="Introduce tu contraseña temporal"
+                    />
+                    <button type="button" class="toggle-password" (click)="toggleTempPasswordVisibility()">
+                        👁
+                    </button>
+                </div>
+                <div *ngIf="tempPassword?.invalid && tempPassword?.touched" class="error-message">
+                    <small *ngIf="tempPassword?.errors?.['required']">La contraseña temporal es obligatoria.</small>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="newPassword">Nueva Contraseña</label>
+                <div class="password-input-wrapper">
+                    <input 
+                        id="newPassword"
+                        [type]="showNewPassword ? 'text' : 'password'"
+                        formControlName="newPassword"
+                        placeholder="Introduce tu nueva contraseña"
+                    />
+                    <button type="button" class="toggle-password" (click)="toggleNewPasswordVisibility()">
+                        👁
+                    </button>
+                </div>
+                <div *ngIf="newPassword?.invalid && newPassword?.touched" class="error-message">
+                    <small *ngIf="newPassword?.errors?.['required']">La nueva contraseña es obligatoria.</small>
+                    <small *ngIf="newPassword?.errors?.['minlength']">La contraseña debe tener al menos 8 caracteres.</small>
+                    <small *ngIf="newPassword?.errors?.['pattern']">La contraseña debe incluir al menos una mayúscula y un carácter especial.</small>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="confirmNewPassword">Confirmar Nueva Contraseña</label>
+                <div class="password-input-wrapper">
+                    <input 
+                        id="confirmNewPassword"
+                        [type]="showConfirmPassword ? 'text' : 'password'"
+                        formControlName="confirmNewPassword"
+                        placeholder="Confirma tu nueva contraseña"
+                    />
+                    <button type="button" class="toggle-password" (click)="toggleConfirmPasswordVisibility()">
+                        👁
+                    </button>
+                </div>
+                <div *ngIf="confirmNewPassword?.invalid && confirmNewPassword?.touched" class="error-message">
+                    <small *ngIf="confirmNewPassword?.errors?.['required']">La confirmación de la contraseña es obligatoria.</small>
+                    <small *ngIf="confirmNewPassword?.errors?.['minlength']">La confirmación debe tener al menos 8 caracteres.</small>
+                </div>
+            </div>
+
+            <div *ngIf="updatePasswordForm.errors?.['passwordsMismatch'] && (newPassword?.touched || confirmNewPassword?.touched)" class="error-message">
+                <small>Las contraseñas no coinciden.</small>
+            </div>
+
+            <div *ngIf="mensaje" class="success-message">
+                {{ mensaje }}
+            </div>
+
+            <div *ngIf="error" class="error-message">
+                {{ error }}
+            </div>
+
+            <button type="submit" class="submit-btn">Actualizar Contraseña</button>
+        </form>
+    </div>
+</div>
+

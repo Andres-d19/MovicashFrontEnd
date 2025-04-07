@@ -1,0 +1,596 @@
+.title {
+  font-size: 36px;
+  font-weight: bold;
+  color: #333;
+  font-family: Arial, sans-serif;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+}
+
+@media (max-width: 480px) {
+  .title {
+      font-size: 28px;
+  }
+  .subtitle {
+    font-size: 16px;
+  }
+}
+.subtitle {
+  font-size: 18px;
+  color: #333;
+  padding: 0 20px;
+  font-family: Arial, sans-serif;
+  margin-bottom: 30px;
+  margin-top: 110px;
+}
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Estilo base */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
+}
+
+/* Contenedor principal */
+.container {
+  width: 80%; /* Combinado de tus dos definiciones */
+  margin: auto;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+
+/* Barra de búsqueda */
+.search-bar {
+  display: flex;
+  font-family: Arial, sans-serif;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 60px;
+  margin: 100px 0 20px 0;
+}
+
+.search-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+  min-width: 700px;
+}
+
+.form-row {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.search-container input {
+  width: 100% ;
+  height: 100%;
+  padding: 10px 10px 10px 10px; /* Ajustado para consistencia */
+  padding-right: 35px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+.search-icon {
+  position: absolute;
+  right: 10px;
+  color: #555;
+  font-size: 18px;
+  pointer-events: none;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* Formulario compacto */
+.admin-form {
+  margin-bottom: 20px;
+}
+
+.admin-form h2 {
+  text-align: center;
+}
+
+/* Agrupar campos en filas */
+.form-row {
+  display: flex;
+  gap: 20px;
+}
+
+.form-group {
+  flex: 1;
+}
+
+.form-group label {
+  display: block;
+  color: #333;
+}
+
+/* Efecto de placeholder animado */
+.input-container {
+  position: relative;
+}
+
+.input-container input,
+.input-container select {
+  width: 100%;
+    padding: 10px 12px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #fafafa;
+    transition: border-color 0.2s ease;
+}
+
+.input-container .placeholder {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+  font-size: 14px;
+  color: #aaa;
+  pointer-events: none;
+  transition: all 0.3s;
+}
+
+.input-container input:focus + .placeholder,
+.input-container input:not(:placeholder-shown) + .placeholder {
+  top: 0px;
+  font-size: -0px;
+
+}
+
+/* Mensajes de error */
+.error-message {
+  color: red;
+  font-size: 11px;
+  margin-top: 5px;
+  font-family: Arial, sans-serif;
+}
+
+/* Botones */
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+}
+
+/* Tabla */
+.admin-list {
+  margin-top: 30px;
+  font-family: Arial, sans-serif;
+}
+
+.admin-list table {
+  width: 100%;
+    border-collapse: collapse;
+    font-family: Arial, sans-serif;
+}
+
+.admin-list th,
+.admin-list td {
+  border: 1px solid #d3d3d3; /* Gris claro para los bordes */
+    padding: 10px;
+    text-align: left;
+}
+
+.admin-list th {
+  background-color: #164474; /* Azul fuerte para el encabezado */
+    color: white; /* Color blanco para el texto del encabezado */
+    font-weight: bold;
+}
+
+tr:nth-child(even) td {
+  background-color: #f2f2f2; /* Gris claro para las celdas alternas */
+}
+
+tr:nth-child(odd) td {
+  background-color: #ffffff; /* Blanco para las demás celdas */
+}
+
+.admin-list td {
+  background-color: #f9f9f9;
+}
+
+.edit-btn,
+.delete-btn {
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  color: white;
+  margin-left: 5px;
+}
+
+/* Botón editar */
+.edit-btn {
+  background-color: #164474;
+}
+
+.edit-btn:hover {
+  background-color: #304aa2;
+}
+
+/* Botón eliminar */
+.delete-btn {
+  background-color: #000000;
+}
+
+.delete-btn:hover {
+  background-color: #2d2d2d;
+}
+
+/* Iconos dentro de botones */
+.icon {
+  width: 20px;
+  height: 20px;
+  fill: white;
+}
+
+/* Botón cancelar */
+.cancel-btn {
+  padding: 10px 15px;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 5px;
+  border: none;
+  background-color: #6c757d;
+  color: white;
+}
+
+.cancel-btn:hover {
+  background-color: #5a6268;
+}
+
+/* Estilos generales */
+.container {
+  width: 80%;
+  margin: auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  font-family: Arial, sans-serif;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  text-align: center;
+  color: #333;
+}
+
+.section-title {
+  font-size: 18px;
+  font-family: Arial, sans-serif;
+  font-weight: bold;
+  margin: 20px 0 10px;
+  color: #164474;
+  text-align: left;
+}
+
+.form-row {
+  display: flex;
+  gap: 20px;
+}
+
+.form-group {
+  flex: 1;
+}
+
+/*.remove-btn*/
+.add-btn {
+  height: 40px;
+  font-family: Arial, sans-serif;
+  padding: 0 20px; /* Ajustado para centrar el texto verticalmente */
+  background-color: #164474; /* Azul rey */
+  color: white;
+  border: none;
+  border-radius: 4px 4px 4px 4px;
+  font-size: 16px;
+  cursor: pointer;
+  box-sizing: border-box;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  margin: 85px 0 20px 0;
+}
+
+.add-btn i {
+  margin-right: 8px; 
+}
+
+.add-btn:hover {
+  background-color: #304aa2; /* Tono más oscuro para el hover */
+}
+
+.remove-btn {
+  background-color: #dc3545;
+  color: white;
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  justify-content: center;
+  max-width: 1100px;
+  margin: auto;
+}
+
+.header-title {
+  /*font-size: 24px;*/
+  font-weight: bold;
+}
+
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.modal-content {
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 800px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  font-family: 'Arial', sans-serif;
+  overflow-y: auto;
+  max-height: 85vh;
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+      transform: translateY(-50px);
+      opacity: 0;
+  }
+  to {
+      transform: translateY(0);
+      opacity: 1;
+  }
+}
+
+.title {
+  font-size: 24px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-bottom: 25px;
+  text-align: center;
+  letter-spacing: 0.5px;
+}
+
+.section-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #164474;
+  margin: 25px 0 15px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 5px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.form-group label {
+  color: #333;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+
+
+.input-containerr {
+  position: relative;
+}
+
+.input-containerr input,
+.input-containerr select {
+    width: 100%;
+    padding: 10px 12px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #d5d5d5;
+    transition: border-color 0.2s ease;
+}
+
+.input-container input:focus,
+.input-container select:focus {
+    outline: none;
+    border-color: #164474;
+    background-color: #fff;
+}
+
+.form-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  
+  border-top: 1px solid #eee;
+}
+
+.submit-btn {
+  background-color: #164474; 
+  color: white;
+  padding: 10px 25px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border: none; /* Sin bordes */
+}
+
+.submit-btn:hover {
+  background-color: #12365e;
+}
+
+/* Botón Cerrar dentro de form-actions */
+.form-actions .close-btn {
+  background-color: #000000; /* Negro */
+  color: #ffffff; /* Blanco */
+  padding: 10px 25px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border: none; /* Sin bordes */
+}
+
+.form-actions .close-btn:hover {
+  background-color: #2d2d2d; /* Negro más claro para hover */
+}
+
+button[type="button"] {
+  background-color: #f8f9fa;
+  color: #444;
+  padding: 8px 15px;
+  font-size: 13px;
+  border-radius: 4px;
+  margin-top: 5px;
+}
+
+button[type="button"]:hover {
+  background-color: #e9ecef;
+}
+
+.form-row.telefono-row {
+  display: flex;
+  gap: 10px;
+  align-items: flex-end;
+}
+
+.form-group.lada {
+  flex: 0 0 100px; /* Campo más pequeño para Lada */
+}
+
+.form-group.numero {
+  flex: 1; /* Campo más largo para Número */
+}
+
+button.add-phone-btn {
+  background-color: #164474; /* Azul que usas */
+  color: white;
+  padding: 8px 15px;
+  font-size: 13px;
+  border-radius: 4px;
+  border: none; /* Sin bordes */
+  margin-top: 5px;
+}
+
+button.add-phone-btn:hover {
+  background-color: #304aa2;
+}
+
+button.remove-phone-btn {
+  background-color: #000000; /* Negro */
+  color: #ffffff; /* Blanco */
+  padding: 8px 15px;
+  font-size: 13px;
+  border-radius: 4px;
+  border: none; /* Sin bordes */
+  margin-top: 5px;
+}
+
+button.remove-phone-btn:hover {
+  background-color: #2d2d2d; /* Negro más claro para hover */
+}
+
+
+.logo-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.logo {
+  display: flex;
+  font-family: Arial, sans-serif;
+  justify-content: center;
+  margin-bottom: 5px;
+}
+
+.logo-box {
+  position: relative;
+  width: 70px;
+  height: 70px;
+}
+
+.logo-box:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 2px solid #333;
+}
+
+.logo-box span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 42px;
+  font-weight: 500;
+  color: #333;
+}
+
+.logo-box:after {
+  content: "";
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  width: 100%;
+  height: 100%;
+  border: 1px solid #333;
+  z-index: -1;
+}
+
+.brand-name {
+  font-size: 20px;
+  letter-spacing: 4px;
+  color: #333;
+  font-family: Arial, sans-serif;
+  margin-top: 10px;
+}

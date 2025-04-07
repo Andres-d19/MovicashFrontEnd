@@ -1,0 +1,168 @@
+<div class="container">
+  <!-- Encabezado con título -->
+  <div class="header">
+    <h1 class="main-title">Bitácora de Transacciones</h1>
+  </div>
+
+  <!-- Panel de filtros -->
+  <div class="card mb-2">
+    <div class="card-header text-white">
+      <h5 class="mb-0">Filtros</h5>
+    </div>
+    <div class="card-body">
+      <form [formGroup]="filterForm">
+        <div class="row g-2">
+          <div class="col-md-2 mb-2">
+            <label for="id" class="form-label">ID Comprobante</label>
+            <input type="text" class="form-control" id="id" formControlName="id" placeholder="ID">
+          </div>
+          <div class="col-md-2 mb-2">
+            <label for="estado" class="form-label">Estado</label>
+            <select class="form-select" id="estado" formControlName="estado">
+              <option *ngFor="let estado of estados" [value]="estado">{{ estado }}</option>
+            </select>
+          </div>
+          <div class="col-md-2 mb-2">
+            <label for="fechaInicio" class="form-label">Fecha inicio</label>
+            <input type="date" class="form-control" id="fechaInicio" formControlName="fechaInicio">
+          </div>
+          <div class="col-md-2 mb-2">
+            <label for="fechaFin" class="form-label">Fecha fin</label>
+            <input type="date" class="form-control" id="fechaFin" formControlName="fechaFin">
+          </div>
+          <div class="col-md-4 d-flex align-items-end mb-2">
+            <button type="button" class="btn btn-secondary me-2" (click)="limpiarFiltros()">
+              <i class="bi bi-eraser"></i> Limpiar
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Tabla de transacciones (reducida) -->
+  <div class="card">
+    <div class="card-body p-2">
+      <!-- Loader -->
+      <div *ngIf="isLoading" class="text-center py-3">
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Cargando...</span>
+        </div>
+        <p class="mt-2">Cargando transacciones...</p>
+      </div>
+
+      <!-- Mensaje de error -->
+      <div *ngIf="!isLoading && errorMessage" class="alert alert-danger py-2">
+        {{ errorMessage }}
+      </div>
+
+      <!-- Mensaje sin resultados -->
+      <div *ngIf="!isLoading && !errorMessage && transaccionesFiltradas.length === 0" class="alert alert-info py-2">
+        No se encontraron transacciones con los filtros aplicados.
+      </div>
+
+      <!-- Tabla de resultados (solo columnas principales) -->
+      <div *ngIf="!isLoading && !errorMessage && transaccionesFiltradas.length > 0" class="table-responsive">
+        <table class="table table-sm table-hover">
+          <thead>
+            <tr>
+              <th>IdComprobante</th>
+              <th>ClaveRastreo</th>
+              <th>Fecha de realizacion</th>
+              <th>Tipo</th>
+              <th>Concepto</th>
+              <th>Monto</th>
+              <th>Estado</th>
+              <th>Beneficiario</th>
+              <th>Cuenta Ben.</th>
+              <th>Acción</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let transaccion of transaccionesFiltradas">
+              <td class="texto-comprimido" title="{{ transaccion.IdComprobante }}">{{ transaccion.IdComprobante || 'N/A' }}</td>
+              <td class="texto-comprimido" title="{{ transaccion.ClaveRastreo }}">{{ transaccion.ClaveRastreo || 'N/A' }}</td>
+              <td>{{ transaccion.Fecha | date:'dd/MM/yy HH:mm' }}</td>
+              <td>{{ transaccion.Tipo || 'N/A' }}</td>
+              <td class="texto-comprimido" title="{{ transaccion.Concepto }}">{{ transaccion.Concepto || 'N/A' }}</td>
+              <td [ngClass]="{'text-success': transaccion.Monto > 0, 'text-danger': transaccion.Monto < 0}">
+                {{ isValidMonto(transaccion.Monto) }}
+              </td>
+              <td>
+                <span class="badge" [ngClass]="{
+                  'bg-warning': transaccion.Estado === 'Pendiente',
+                  'bg-success': transaccion.Estado === 'Aprobado',
+                  'bg-danger': transaccion.Estado === 'Cancelado'
+                }">{{ transaccion.Estado }}</span>
+              </td>
+              <td class="texto-comprimido" title="{{ transaccion.NombreCompletoBeneficiario }}">{{ transaccion.NombreCompletoBeneficiario || 'N/A' }}</td>
+              <td class="texto-comprimido" title="{{ transaccion.NumeroCuentaBeneficiario }}">{{ transaccion.NumeroCuentaBeneficiario || 'N/A' }}</td>
+              <td><button class="btn btn-info" (click)="abrirDetalleTransaccion(transaccion)">Más información</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal para mostrar detalles completos de transacción -->
+  <div *ngIf="isModalOpen" class="modal-overlay" tabindex="-1" aria-labelledby="detalleTransaccionModalLabel" aria-hidden="true" (click)="cerrarModal()">
+    <div class="modal-content modal-form" (click)="$event.stopPropagation()">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div class="modal-logo">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 70" width="130">
+              <rect x="2" y="2" width="36" height="36" fill="none" stroke="#333" stroke-width="2"/>
+              <rect x="6" y="6" width="28" height="28" fill="none" stroke="#333" stroke-width="1"/>
+              <text x="20" y="28" font-family="Arial, sans-serif" font-weight="500" font-size="20" fill="#333" text-anchor="middle">M</text>
+              <text x="48" y="30" font-family="Arial, sans-serif" font-weight="normal" font-size="16" fill="#999">MOVICASH</text>
+            </svg>
+          </div>
+    
+          <h5 class="modal-title" id="detalleTransaccionModalLabel">Detalle de transacción</h5>
+        </div>
+        <div class="modal-body" *ngIf="transaccionSeleccionada">
+          <!-- Detalles de la transacción -->
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <h6 class="section-title">Información básica</h6>
+              <table class="table table-sm">
+                <tbody>
+                  <tr><th>ID Comprobante:</th><td>{{ transaccionSeleccionada.IdComprobante || 'N/A' }}</td></tr>
+                  <tr><th>Clave Rastreo:</th><td>{{ transaccionSeleccionada.ClaveRastreo || 'N/A' }}</td></tr>
+                  <tr><th>Fecha:</th><td>{{ transaccionSeleccionada.Fecha | date:'dd/MM/yyyy HH:mm:ss' }}</td></tr>
+                  <tr><th>Tipo:</th><td>{{ transaccionSeleccionada.Tipo || 'N/A' }}</td></tr>
+                  <tr><th>Concepto:</th><td>{{ transaccionSeleccionada.Concepto || 'N/A' }}</td></tr>
+                  <tr><th>Monto:</th><td>{{ isValidMonto(transaccionSeleccionada.Monto) }}</td></tr>
+                  <tr><th>Estado:</th><td>{{ transaccionSeleccionada.Estado }}</td></tr>
+                  <tr><th>RFC del Operador:</th><td>{{ transaccionSeleccionada.RFCOperador }}</td></tr>
+                  <tr><th>Nombre completo del Operdor:</th><td>{{ transaccionSeleccionada.NombreCompletoOperador }}</td></tr>
+
+                </tbody>
+              </table>
+            </div>
+            <div class="col-md-6 mb-3">
+              <h6 class="section-title">Datos del beneficiario</h6>
+              <table class="table table-sm">
+                <tbody>
+                  <tr><th>Nombre:</th><td>{{ transaccionSeleccionada.NombreCompletoBeneficiario || 'N/A' }}</td></tr>
+                  <tr><th>Número de cuenta:</th><td>{{ transaccionSeleccionada.NumeroCuentaBeneficiario || 'N/A' }}</td></tr>
+                </tbody>
+              </table>
+              <h6 class="section-title mt-3">Datos del ordenante</h6>
+              <table class="table table-sm">
+                <tbody>
+                  <tr><th>Nombre:</th><td>{{ transaccionSeleccionada.NombreCompletoOrdenante || 'N/A' }}</td></tr>
+                  <tr><th>Número de cuenta:</th><td>{{ transaccionSeleccionada.NumeroCuentaOrdenante || 'N/A' }}</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="cerrarModal()">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

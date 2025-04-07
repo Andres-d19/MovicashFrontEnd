@@ -1,0 +1,406 @@
+<div class="logo-container">
+  <div class="logo">
+      <div class="logo-box">
+          <span>M</span>
+      </div>
+  </div>
+  <div class="brand-name">MOVICASH</div>
+  <h1 class="title">GESTION DE OPERADORES</h1> <!-- Título debajo del logotipo -->
+</div>
+
+
+<!-- Modal de Agregar/Editar Operador Mejorado -->
+<div *ngIf="isModalOpen" class="modal-overlay">
+  <div class="modal-content modal-form">
+    <div class="modal-header">
+      <div class="modal-logo">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 70" width="130">
+          <rect x="2" y="2" width="36" height="36" fill="none" stroke="#333" stroke-width="2"/>
+          <rect x="6" y="6" width="28" height="28" fill="none" stroke="#333" stroke-width="1"/>
+          <text x="20" y="28" font-family="Arial, sans-serif" font-weight="500" font-size="20" fill="#333" text-anchor="middle">M</text>
+          <text x="48" y="30" font-family="Arial, sans-serif" font-weight="normal" font-size="16" fill="#999">MOVICASH</text>
+        </svg>
+      </div>
+      <h2>{{ isEditing ? 'Editar Operador' : 'Registrar Operador' }}</h2>
+    </div>
+
+    <div class="modal-body">
+      <form (ngSubmit)="onSubmit()">
+        <!-- Datos Personales -->
+        <div class="section">
+          <div class="section-title">Datos Personales</div>
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label>Correo Electrónico <span class="required">*</span></label>
+              <input type="email" [(ngModel)]="operador.CorreoElectronico" name="CorreoElectronico" required>
+              <div *ngIf="errorMessages['CorreoElectronico']" class="error-message">
+                {{ errorMessages['CorreoElectronico'] }}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dirección -->
+        <div class="section">
+          <div class="section-title">Dirección</div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Calle <span class="required">*</span></label>
+              <input type="text" [(ngModel)]="operador.Direccion.Calle" name="Calle" required>
+              <div *ngIf="errorMessages['Calle']" class="error-message">
+                {{ errorMessages['Calle'] }}
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Número Exterior <span class="required">*</span></label>
+              <input type="text" [(ngModel)]="operador.Direccion.NumeroExterior" name="NumExt" required>
+              <div *ngIf="errorMessages['NumeroExterior']" class="error-message">
+                {{ errorMessages['NumeroExterior'] }}
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Número Interior</label>
+              <input type="text" [(ngModel)]="operador.Direccion.NumeroInterior" name="NumInt">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Colonia <span class="required">*</span></label>
+              <input type="text" [(ngModel)]="operador.Direccion.Colonia" name="Colonia" required>
+              <div *ngIf="errorMessages['Colonia']" class="error-message">
+                {{ errorMessages['Colonia'] }}
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Ciudad <span class="required">*</span></label>
+              <input type="text" [(ngModel)]="operador.Direccion.Ciudad" name="Ciudad" required>
+              <div *ngIf="errorMessages['Ciudad']" class="error-message">
+                {{ errorMessages['Ciudad'] }}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Teléfonos -->
+        <div class="section">
+          <div class="section-title">Teléfonos</div>
+          <div *ngFor="let tel of operador.Telefono; let i = index" class="form-row phone-row">
+            <div class="form-group lada-group">
+              <label>Lada <span class="required">*</span></label>
+              <input type="text" [(ngModel)]="tel.Lada" name="Lada{{i}}" required>
+              <div *ngIf="errorMessages['Lada'+i]" class="error-message">
+                {{ errorMessages['Lada'+i] }}
+              </div>
+            </div>
+            <div class="form-group phone-group">
+              <label>Teléfono {{ i + 1 }} <span class="required">*</span></label>
+              <input type="text" [(ngModel)]="tel.Numero" name="Telefono{{i}}" required>
+              <div *ngIf="errorMessages['Telefono'+i]" class="error-message">
+                {{ errorMessages['Telefono'+i] }}
+              </div>
+            </div>
+            <div class="phone-actions">
+              <button type="button" class="remove-btn" (click)="removePhone(i)">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="24" viewBox="0 0 24 24" fill="white">
+                  <path d="M6 19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
+                </svg>
+              </button>
+              <button *ngIf="i === operador.Telefono.length - 1" type="button" class="add-btn" (click)="addPhone()">Agregar</button>
+            </div>
+          </div>
+          <div *ngIf="operador.Telefono.length === 0" class="add-phone-container">
+            <button type="button" class="add-btn" (click)="addPhone()">Agregar Teléfono</button>
+          </div>
+        </div>
+
+        <!-- Estado -->
+        <div class="section">
+          <div class="section-title">Estado</div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Estado <span class="required">*</span></label>
+              <select [(ngModel)]="operador.Estado" name="Estado" required>
+                <option value="Activo">Activo</option>
+                <option value="Inactivo">Inactivo</option>
+                <option value="Bloqueado">Bloqueado</option>
+              </select>
+              <div *ngIf="errorMessages['Estado']" class="error-message">
+                {{ errorMessages['Estado'] }}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Botones -->
+        <div class="form-actions">
+          <button type="submit" class="primary-btn">{{ isEditing ? 'Modificar' : 'Agregar' }}</button>
+          <button type="button" class="cancel-btn" (click)="closeModal()">Cancelar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Modal de Agregar Operador -->
+<div *ngIf="isModalOpen && !isEditing" class="modal-overlay">
+  <div class="modal-content modal-form">
+    <div class="modal-header">
+      <div class="modal-logo">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 70" width="130">
+          <rect x="2" y="2" width="36" height="36" fill="none" stroke="#333" stroke-width="2"/>
+          <rect x="6" y="6" width="28" height="28" fill="none" stroke="#333" stroke-width="1"/>
+          <text x="20" y="28" font-family="Arial, sans-serif" font-weight="500" font-size="20" fill="#333" text-anchor="middle">M</text>
+          <text x="48" y="30" font-family="Arial, sans-serif" font-weight="normal" font-size="16" fill="#999">MOVICASH</text>
+        </svg>
+      </div>
+      <h2>Registrar Operador</h2>
+    </div>
+    
+    <div class="modal-body">
+      <form (ngSubmit)="onSubmit()">
+        <div class="section">
+          <div class="section-title">Datos Personales</div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>RFC <span class="required">*</span></label>
+              <input type="text" [(ngModel)]="operador.RFC" name="RFC" required>
+              <div *ngIf="errorMessages['RFC']" class="error-message">
+                {{ errorMessages['RFC'] }}
+              </div>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Nombre(s) <span class="required">*</span></label>
+              <input type="text" [(ngModel)]="operador.NombrePersonal" name="NombrePersonal" required>
+              <div *ngIf="errorMessages['NombrePersonal']" class="error-message">
+                {{ errorMessages['NombrePersonal'] }}
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Apellido Paterno <span class="required">*</span></label>
+              <input type="text" [(ngModel)]="operador.ApPaterno" name="ApPaterno" required>
+              <div *ngIf="errorMessages['ApPaterno']" class="error-message">
+                {{ errorMessages['ApPaterno'] }}
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Apellido Materno</label>
+              <input type="text" [(ngModel)]="operador.ApMaterno" name="ApMaterno">
+            </div>
+          </div>
+
+          <!-- Fecha de Nacimiento -->
+          <div class="form-row">
+            <div class="form-group">
+              <label>Fecha de Nacimiento <span class="required">*</span></label>
+              <input type="date" [(ngModel)]="operador.FechaNacimiento" name="FechaNacimiento" required>
+              <div *ngIf="errorMessages['FechaNacimiento']" class="error-message">
+                {{ errorMessages['FechaNacimiento'] }}
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Sexo <span class="required">*</span></label>
+              <select [(ngModel)]="operador.Sexo" name="Sexo" required>
+                <option value="M">Masculino</option>
+                <option value="F">Femenino</option>
+              </select>
+              <div *ngIf="errorMessages['Sexo']" class="error-message">
+                {{ errorMessages['Sexo'] }}
+              </div>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Correo Electrónico <span class="required">*</span></label>
+              <input type="email" [(ngModel)]="operador.CorreoElectronico" name="CorreoElectronico" required>
+              <div *ngIf="errorMessages['CorreoElectronico']" class="error-message">
+                {{ errorMessages['CorreoElectronico'] }}
+              </div>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Contraseña <span class="required">*</span></label>
+              <div class="password-container">
+                <input [type]="passwordVisible ? 'text' : 'password'" [(ngModel)]="operador.Password" name="Password" required>
+                <button type="button" class="show-password-btn" (click)="togglePasswordVisibility()"> 👁</button>
+              </div>
+              <div *ngIf="errorMessages['Password']" class="error-message">
+                {{ errorMessages['Password'] }}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dirección -->
+        <div class="section">
+          <div class="section-title">Dirección</div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Calle <span class="required">*</span></label>
+              <input type="text" [(ngModel)]="operador.Direccion.Calle" name="Calle" required>
+              <div *ngIf="errorMessages['Calle']" class="error-message">
+                {{ errorMessages['Calle'] }}
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Número Interior</label>
+              <input type="text" [(ngModel)]="operador.Direccion.NumeroInterior" name="NumeroInterior">
+            </div>
+            <div class="form-group">
+              <label>Número Exterior <span class="required">*</span></label>
+              <input type="text" [(ngModel)]="operador.Direccion.NumeroExterior" name="NumeroExterior" required>
+              <div *ngIf="errorMessages['NumeroExterior']" class="error-message">
+                {{ errorMessages['NumeroExterior'] }}
+              </div>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Colonia <span class="required">*</span></label>
+              <input type="text" [(ngModel)]="operador.Direccion.Colonia" name="Colonia" required>
+              <div *ngIf="errorMessages['Colonia']" class="error-message">
+                {{ errorMessages['Colonia'] }}
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Ciudad <span class="required">*</span></label>
+              <input type="text" [(ngModel)]="operador.Direccion.Ciudad" name="Ciudad" required>
+              <div *ngIf="errorMessages['Ciudad']" class="error-message">
+                {{ errorMessages['Ciudad'] }}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section">
+          <div class="section-title">Teléfonos</div>
+          <div *ngFor="let tel of operador.Telefono; let i = index" class="form-row phone-row">
+            <div class="form-group lada-group">
+              <label>Lada <span class="required">*</span></label>
+              <input type="text" [(ngModel)]="tel.Lada" name="Lada{{i}}" required>
+              <div *ngIf="errorMessages['Lada'+i]" class="error-message">
+                {{ errorMessages['Lada'+i] }}
+              </div>
+            </div>
+            <div class="form-group phone-group">
+              <label>Teléfono {{ i + 1 }} <span class="required">*</span></label>
+              <input type="text" [(ngModel)]="tel.Numero" name="Telefono{{i}}" required>
+              <div *ngIf="errorMessages['Telefono'+i]" class="error-message">
+                {{ errorMessages['Telefono'+i] }}
+              </div>
+            </div>
+            <div class="phone-actions">
+              <button type="button" class="remove-btn" (click)="removePhone(i)">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="24" viewBox="0 0 24 24" fill="white">
+                  <path d="M6 19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
+                </svg>
+              </button>
+              <button *ngIf="i === operador.Telefono.length - 1" type="button" class="add-btn" (click)="addPhone()">Agregar</button>
+            </div>
+          </div>
+          <div *ngIf="operador.Telefono.length === 0" class="add-phone-container">
+            <button type="button" class="add-btn" (click)="addPhone()">Agregar Teléfono</button>
+          </div>
+        </div>
+
+        <!-- Estado de Cuenta -->
+        <div class="section">
+          <div class="section-title">Estado de Cuenta</div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Estado <span class="required">*</span></label>
+              <select [(ngModel)]="operador.Estado" name="Estado" required>
+                <option value="Activo">Activo</option>
+                <option value="Inactivo">Inactivo</option>
+                <option value="Bloqueado">Bloqueado</option>
+              </select>
+              <div *ngIf="errorMessages['Estado']" class="error-message">
+                {{ errorMessages['Estado'] }}
+              </div>
+            </div>
+          </div>
+
+          <!-- Fecha de Creación -->
+          <div class="form-row">
+            <div class="form-group">
+              <label>Fecha de Creación <span class="required">*</span></label>
+              <input type="date" [(ngModel)]="operador.FechaCreacion" name="FechaCreacion" [value]="today" required>
+              <div *ngIf="errorMessages['FechaCreacion']" class="error-message">
+                {{ errorMessages['FechaCreacion'] }}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="primary-btn">Agregar</button>
+          <button type="button" class="cancel-btn" (click)="closeModal()">Cancelar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<div class="header-container">
+  <h2 class="list-title">Lista de Operadores</h2>
+  <div class="search-container">
+    <div class="search-box">
+      <input type="text" placeholder="Buscar operador..." [(ngModel)]="searchQuery" (input)="search()">
+    </div>
+    <button class="add-btn" (click)="openModal()">
+      <svg xmlns="http://www.w3.org/2000/svg" width="25" height="48" fill="#ffffff" viewBox="0 0 24 24">
+        <path d="M12 5v14m-7-7h14" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Agregar
+    </button>
+  </div>
+</div>
+
+<!-- Tabla de Operadores -->
+<div class="container">
+  
+  <div class="table-container">
+      <table>
+          <thead>
+              <tr>
+                  <th>RFC</th>
+                  <th>Nombre</th>
+                  <th>Correo</th>
+                  <th>Fecha de Registro</th>
+                  <th>Estado</th>
+                  <th>Acciones</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr *ngFor="let operador of filteredOperadores">
+                  <td>{{ operador.RFC }}</td>
+                  <td>{{ operador.NombrePersonal }} {{ operador.ApPaterno }} {{ operador.ApMaterno }}</td>
+                  <td>{{ operador.CorreoElectronico }}</td>
+                  <td>{{ operador.FechaCreacion | date:'yyyy-MM-dd' }}</td>
+                  <td>{{ operador.Estado }}</td>
+                  <td class="action-buttons">
+                    <button class="edit-btn" (click)="editOperador(operador)">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="24" viewBox="0 0 24 24" fill="white">
+                        <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25z"/>
+                        <path d="M20.71 7.04a1.003 1.003 0 0 0 0-1.42l-2.34-2.34a1.003 1.003 0 0 0-1.42 0l-1.83 1.83 3.75 3.75 1.84-1.82z"/>
+                      </svg>                 
+                    </button>
+                      <button class="delete-btn" (click)="advetenciaeliminado(operador)">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="24" viewBox="0 0 24 24" fill="white">
+                          <path d="M6 19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
+                        </svg>
+                      </button>
+                  </td>
+              </tr>
+          </tbody>
+      </table>
+  </div>
+</div>

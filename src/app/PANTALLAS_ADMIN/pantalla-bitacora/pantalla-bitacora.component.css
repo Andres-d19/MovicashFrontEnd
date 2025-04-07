@@ -1,0 +1,140 @@
+.table-container {
+  width: 90%;
+  margin: 20px auto;
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  padding: 20px;
+  box-shadow: none; /* ← Asegura que no tenga sombra */
+  border: none; /* ← Por si tiene borde sólido */
+}
+
+.search-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 1px;
+}
+
+.subtitle {
+  width: 20%; /* Asegura que el subtítulo ocupe el ancho completo */
+  margin-right: 0; /* Elimina el margen derecho */
+  padding-left: 0; /* Elimina cualquier padding izquierdo si es necesario */
+}
+
+.search-field {
+  width: 0%; /* Cambia el 600px por 100% para que ocupe todo el espacio disponible */
+  height: 50px; /* Aumenta la altura para hacerlo más grueso */
+  font-size: 20px; /* Ajusta el tamaño de la fuente */
+}
+
+input[matInput] {
+  width: 73%; /* Asegura que el input ocupe el 100% del contenedor */
+  padding: 15px; /* Aumenta el relleno interno para hacerlo más grueso */
+  font-size: 16px; /* Cambia el tamaño de fuente */
+  border-radius: 5px; /* Redondea los bordes del input */
+  border: 1px solid #ccc; /* Añade un borde claro */
+}
+
+
+.custom-table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid #ccc;
+}
+
+.custom-table th {
+  background: #164474;
+  color: white;
+  text-align: left;
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+
+.custom-table td {
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+
+.custom-table tr:hover {
+  background: #e3f2fd;
+}
+
+.logo-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 40px;
+  font-family: Arial, sans-serif;
+}
+
+.logo {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 5px;
+}
+
+.logo-box {
+  position: relative;
+  width: 70px;
+  height: 70px;
+}
+
+.logo-box:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 2px solid #333;
+}
+
+.logo-box span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 42px;
+  font-weight: 500;
+  color: #333;
+}
+
+.logo-box:after {
+  content: "";
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  width: 100%;
+  height: 100%;
+  border: 1px solid #333;
+  z-index: -1;
+}
+
+.brand-name {
+  font-size: 20px;
+  letter-spacing: 4px;
+  color: #333;
+  margin-top: 10px;
+  font-family: Arial, sans-serif;
+}
+
+/* Estilos generales para el header */
+.title {
+  text-align: center;
+  font-size: 36px;
+  font-weight: bold;
+  color: #333;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+  font-family: Arial, sans-serif;
+}
+
+.subtitle {
+  text-align: center;
+  font-size: 18px;
+  color: #333;
+  margin-bottom: 30px;
+  font-family: Arial, sans-serif;
+}
+

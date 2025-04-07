@@ -1,0 +1,416 @@
+
+<div class="logo-container">
+  <div class="logo">
+      <div class="logo-box">
+          <span>M</span>
+      </div>
+  </div>
+  <div class="brand-name">MOVICASH</div>
+</div>
+
+<h1 class="title">Gestión de administradores</h1>
+
+<!-- Barra de búsqueda -->
+<div class="form-row">
+  <p class="subtitle">Lista de Administradores</p>
+<div class="search-bar">
+  <div class="search-container">
+    <input type="text" placeholder="Buscar administrador..." [(ngModel)]="searchQuery" (input)="search()">
+    <span class="search-icon"></span>
+  </div>
+</div>
+
+<!-- Botón para abrir el modal de agregar nuevo administrador -->
+<div class="form-actions">
+  <button class="add-btn" (click)="openAddModal()">
+    <i class="fa fa-plus"></i> 
+     Agregar
+  </button>
+</div>
+</div>
+
+<div class="container">
+<!-- Tabla de Administradores -->
+<div class="admin-list">
+  
+  <table>
+    <thead>
+      <tr>
+        <th>RFC</th>
+        <th>Nombre</th>
+        <th>Correo</th>
+        <th>Fecha de Registro</th>
+        <th>Estado</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let admin of filteredAdmins">
+        <td>{{ admin.RFC }}</td>
+        <td>{{ admin.NombrePersonal }} {{ admin.ApPaterno }} {{ admin.ApMaterno }}</td>
+        <td>{{ admin.CorreoElectronico }}</td>
+        <td>{{admin.FechaCreacion | date:'yyyy-MM-dd'}}</td>
+        <td>{{ admin.Estado }}</td>
+        <td>
+          <button class="edit-btn" (click)="openEditModal(admin)">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 24 24">
+              <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25z"/>
+              <path d="M20.71 7.04a1.003 1.003 0 0 0 0-1.42l-2.34-2.34a1.003 1.003 0 0 0-1.42 0l-1.83 1.83 3.75 3.75 1.84-1.82z"/>
+            </svg>
+          </button>
+          <!-- Botón Eliminar -->
+<button class="delete-btn" (click)="advetenciaeliminado(admin)">
+  <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 24 24">
+    <path d="M6 19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7H6v12z"/>
+    <path d="M19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
+  </svg>
+</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+</div>
+
+<!-- Modal de Agregar Administrador -->
+<div class="modal" *ngIf="isModalOpen">
+<div class="modal-content">
+  <div class="modal-logo">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 70" width="130">
+      <!-- Contorno externo -->
+      <rect x="2" y="2" width="36" height="36" fill="none" stroke="#333" stroke-width="2"/>
+      <!-- Contorno interno -->
+      <rect x="6" y="6" width="28" height="28" fill="none" stroke="#333" stroke-width="1"/>
+      <!-- Letra M estilizada dentro del cuadro -->
+      <text x="20" y="28" font-family="Arial, sans-serif" font-weight="500" font-size="20" fill="#333" text-anchor="middle">M</text>
+      <!-- Texto MOVICASH más cerca -->
+      <text x="48" y="30" font-family="Arial, sans-serif" font-weight="normal" font-size="16" fill="#999">MOVICASH</text>
+    </svg>
+  </div>
+  <h1 class="title">Registrar Administrador</h1>
+  <form #adminForm="ngForm" (ngSubmit)="onSubmit(adminForm)">
+    <div class="section-title">Datos Personales</div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>RFC</label>
+        <div class="input-container">
+          <input type="text" [(ngModel)]="admin.RFC" name="RFC" required pattern="^[A-Z]{4}\d{6}[A-Z0-9]{3}$">
+          <div class="error-message" *ngIf="adminForm.controls['RFC']?.touched && adminForm.controls['RFC']?.invalid">
+            Este campo es obligatorio o no cumple con los requisitos
+          </div>
+        </div>
+      </div>
+    </div>
+      <div class="form-row">
+      <div class="form-group">
+        <label>Nombre</label>
+        <div class="input-container">
+          <input type="text" [(ngModel)]="admin.NombrePersonal" name="NombrePersonal" required>
+          <div class="error-message" *ngIf="adminForm.controls['NombrePersonal']?.touched && adminForm.controls['NombrePersonal']?.errors?.['required']">
+            Este campo no puede estar vacio
+          </div>
+        </div>
+      </div>    
+      <div class="form-group">
+        <label>Apellido Paterno</label>
+        <div class="input-container">
+          <input type="text" [(ngModel)]="admin.ApPaterno" name="ApPaterno" required>
+          <div class="error-message" *ngIf="adminForm.controls['ApPaterno']?.touched && adminForm.controls['ApPaterno']?.errors?.['required']">
+            Este campo no puede estar vacio
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Apellido Materno</label>
+        <div class="input-container">
+          <input type="text" [(ngModel)]="admin.ApMaterno" name="ApMaterno" required>
+          <div class="error-message" *ngIf="adminForm.controls['ApMaterno']?.touched && adminForm.controls['ApMaterno']?.errors?.['required']">
+            Este campo no puede estar vacio
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Sexo</label>
+        <div class="input-container">
+          <select [(ngModel)]="admin.Sexo" name="Sexo" required>
+            <option value="">Seleccione</option>
+            <option value="M">Masculino</option>
+            <option value="F">Femenino</option>
+          </select>
+          <div class="error-message" *ngIf="adminForm.controls['Sexo']?.touched && adminForm.controls['Sexo']?.errors?.['required']">
+            Seleccione un sexo
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Fecha de Nacimiento</label>
+        <div class="input-container">
+          <input type="date" [(ngModel)]="admin.FechaNacimiento" name="FechaNacimiento" required>
+          <div class="error-message" *ngIf="adminForm.controls['FechaNacimiento']?.touched && adminForm.controls['FechaNacimiento']?.errors?.['required']">
+            Ponga su fecha de nacimiento
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-title">Credenciales</div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Correo Electrónico</label>
+        <div class="input-container">
+          <input type="email" [(ngModel)]="admin.CorreoElectronico" name="CorreoElectronico" required email>
+          <div class="error-message" *ngIf="adminForm.controls['CorreoElectronico']?.touched && adminForm.controls['CorreoElectronico']?.invalid">
+            Este campo no puede estar vacio
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-title">Dirección</div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Número Interior</label>
+        <div class="input-container">
+          <input type="text" [(ngModel)]="admin.Direccion.NumeroInterior" name="NumeroInterior">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Número Exterior</label>
+        <div class="input-container">
+          <input type="text" [(ngModel)]="admin.Direccion.NumeroExterior" name="NumeroExterior" required>
+          <div class="error-message" *ngIf="adminForm.controls['NumeroExterior']?.touched && adminForm.controls['NumeroExterior']?.errors?.['required']">
+            Este campo no puede estar vacio
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Calle</label>
+        <div class="input-container">
+          <input type="text" [(ngModel)]="admin.Direccion.Calle" name="Calle" required>
+          <div class="error-message" *ngIf="adminForm.controls['Calle']?.touched && adminForm.controls['Calle']?.errors?.['required']">
+            Escriba su calle
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Colonia</label>
+        <div class="input-container">
+          <input type="text" [(ngModel)]="admin.Direccion.Colonia" name="Colonia" required>
+          <div class="error-message" *ngIf="adminForm.controls['Colonia']?.touched && adminForm.controls['Colonia']?.errors?.['required']">
+            Escriba su colonia
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Ciudad</label>
+        <div class="input-container">
+          <input type="text" [(ngModel)]="admin.Direccion.Ciudad" name="Ciudad" required>
+          <div class="error-message" *ngIf="adminForm.controls['Ciudad']?.touched && adminForm.controls['Ciudad']?.errors?.['required']">
+            Escriba su ciudad
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-title">Teléfonos</div>
+    <div class="form-row telefono-row" *ngFor="let tel of admin.Telefono; let i = index">
+      <div class="form-group lada">
+        <label>Lada {{ i + 1 }}</label>
+        <div class="input-container">
+          <input type="text" [(ngModel)]="tel.Lada" [name]="'Lada' + i" required pattern="^\d{2}$">
+          <div class="error-message" *ngIf="adminForm.controls['Lada' + i]?.touched && adminForm.controls['Lada' + i]?.invalid">
+            Debe de escribir los primeros 2 dígitos de su teléfono
+          </div>
+        </div>
+      </div>
+      <div class="form-group numero">
+        <label>Teléfono {{ i + 1 }}</label>
+        <div class="input-container">
+          <input type="text" [(ngModel)]="tel.Numero" [name]="'Telefono' + i" required pattern="^\d{7}$|^\d{10}$">
+          <div class="error-message" *ngIf="adminForm.controls['Telefono' + i]?.touched && adminForm.controls['Telefono' + i]?.invalid">
+            Este campo solo puede tener 7 o 10 números
+          </div>
+        </div>
+      </div>
+      <button type="button" class="remove-phone-btn" *ngIf="admin.Telefono.length > 1" (click)="removePhoneNumber(i)"><i class="fa fa-trash"></i></button>
+    </div>
+    <button type="button" class="add-phone-btn" (click)="addPhoneNumber()">Agregar Teléfono</button>
+
+    <div class="form-actions">
+      <button class="submit-btn" type="submit" [disabled]="adminForm.invalid">Agregar</button>
+      <button type="button" class="close-btn" (click)="closeModal()">Cancelar</button>
+    </div>
+  </form>
+</div>
+</div>
+
+<!-- Modal de Editar Administrador -->
+<div class="modal" *ngIf="isEditModal">
+<div class="modal-content">
+  <div class="modal-logo">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 70" width="130">
+      <!-- Contorno externo -->
+      <rect x="2" y="2" width="36" height="36" fill="none" stroke="#333" stroke-width="2"/>
+      <!-- Contorno interno -->
+      <rect x="6" y="6" width="28" height="28" fill="none" stroke="#333" stroke-width="1"/>
+      <!-- Letra M estilizada dentro del cuadro -->
+      <text x="20" y="28" font-family="Arial, sans-serif" font-weight="500" font-size="20" fill="#333" text-anchor="middle">M</text>
+      <!-- Texto MOVICASH más cerca -->
+      <text x="48" y="30" font-family="Arial, sans-serif" font-weight="normal" font-size="16" fill="#999">MOVICASH</text>
+    </svg>
+  </div>
+  <h1 class="title">Editar Administrador</h1>
+  <form #editForm="ngForm" (ngSubmit)="onSubmit(editForm)">
+    <div class="section-title">Datos Personales</div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>RFC</label>
+        <div class="input-containerr">
+          <input type="text" [(ngModel)]="admin.RFC" name="RFC" readonly>
+        </div>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Nombre</label>
+        <div class="input-containerr">
+          <input type="text" [(ngModel)]="admin.NombrePersonal" name="NombrePersonal" readonly>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Apellido Paterno</label>
+        <div class="input-containerr">
+          <input type="text" [(ngModel)]="admin.ApPaterno" name="ApPaterno" readonly>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Apellido Materno</label>
+        <div class="input-containerr">
+          <input type="text" [(ngModel)]="admin.ApMaterno" name="ApMaterno" readonly>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-title">Credenciales</div>
+      <div class="form-group">
+        <label>Correo Electrónico</label>
+        <div class="input-container">
+          <input type="email" [(ngModel)]="admin.CorreoElectronico" name="CorreoElectronico" required email>
+          <div class="error-message" *ngIf="editForm.controls['CorreoElectronico']?.touched && editForm.controls['CorreoElectronico']?.invalid">
+            Este campo no puede estar vacio
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Rol</label>
+        <div class="input-container">
+          <select [(ngModel)]="admin.Rol" name="Rol" required>
+            <option value="Admin">Admin</option>
+            <option value="Operador">Operador</option>
+          </select>
+        </div>
+      </div>
+
+    
+
+    <div class="section-title">Dirección</div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Número Interior</label>
+        <div class="input-container">
+          <input type="text" [(ngModel)]="admin.Direccion.NumeroInterior" name="NumeroInterior">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Número Exterior</label>
+        <div class="input-container">
+          <input type="text" [(ngModel)]="admin.Direccion.NumeroExterior" name="NumeroExterior" required>
+          <div class="error-message" *ngIf="editForm.controls['NumeroExterior']?.touched && editForm.controls['NumeroExterior']?.errors?.['required']">
+            Este campo no puede estar vacio
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Calle</label>
+        <div class="input-container">
+          <input type="text" [(ngModel)]="admin.Direccion.Calle" name="Calle" required>
+          <div class="error-message" *ngIf="editForm.controls['Calle']?.touched && editForm.controls['Calle']?.errors?.['required']">
+            Escriba su calle
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Colonia</label>
+        <div class="input-container">
+          <input type="text" [(ngModel)]="admin.Direccion.Colonia" name="Colonia" required>
+          <div class="error-message" *ngIf="editForm.controls['Colonia']?.touched && editForm.controls['Colonia']?.errors?.['required']">
+            Escriba su colonia
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Ciudad</label>
+        <div class="input-container">
+          <input type="text" [(ngModel)]="admin.Direccion.Ciudad" name="Ciudad" required>
+          <div class="error-message" *ngIf="editForm.controls['Ciudad']?.touched && editForm.controls['Ciudad']?.errors?.['required']">
+            Escriba su ciudad
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-title">Teléfonos</div>
+    <div class="form-row telefono-row" *ngFor="let tel of admin.Telefono; let i = index">
+      <div class="form-group lada">
+        <label>Lada {{ i + 1 }}</label>
+        <div class="input-container">
+          <input type="text" [(ngModel)]="tel.Lada" [name]="'Lada' + i" required pattern="^\d{2}$">
+          <div class="error-message" *ngIf="editForm.controls['Lada' + i]?.touched && editForm.controls['Lada' + i]?.invalid">
+            Debe de escribir los primeros 2 dígitos de su teléfono
+          </div>
+        </div>
+      </div>
+      <div class="form-group numero">
+        <label>Teléfono {{ i + 1 }}</label>
+        <div class="input-container">
+          <input type="text" [(ngModel)]="tel.Numero" [name]="'Telefono' + i" required pattern="^\d{7}$|^\d{10}$">
+          <div class="error-message" *ngIf="editForm.controls['Telefono' + i]?.touched && editForm.controls['Telefono' + i]?.invalid">
+            Este campo solo puede tener 7 o 10 números
+          </div>
+        </div>
+      </div>
+      <button type="button" class="remove-phone-btn" *ngIf="admin.Telefono.length > 1" (click)="removePhoneNumber(i)"><i class="fa fa-trash"></i></button>
+    </div>
+    <button type="button" class="add-phone-btn" (click)="addPhoneNumber()">Agregar Teléfono</button>
+
+    <div class="section-title">Estado de Cuenta</div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Estado</label>
+        <div class="input-container">
+          <select [(ngModel)]="admin.Estado" name="Estado" required>
+            <option value="Activo">Activo</option>
+            <option value="Inactivo">Inactivo</option>
+            <option value="Bloqueado">Bloqueado</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button class="submit-btn" type="submit" [disabled]="editForm.invalid">Guardar cambios</button>
+      <button type="button" class="close-btn" (click)="closeModal()">Cerrar</button>
+    </div>
+  </form>
+</div>
+</div>
