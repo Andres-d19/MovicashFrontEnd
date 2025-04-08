@@ -663,8 +663,8 @@ export class PantallaGestionAdminComponent implements OnInit {
    width: 400, // Ancho fijo para el modal
    padding: "2rem",
    showCancelButton: true,
-   confirmButtonColor: "#000000",
-   cancelButtonColor: "#164474",
+   confirmButtonColor: "#164474",
+   cancelButtonColor: "#000000",
    confirmButtonText: "Eliminarlo",
    cancelButtonText: "Cancelar",
    buttonsStyling: true,
