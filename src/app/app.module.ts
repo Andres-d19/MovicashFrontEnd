@@ -39,6 +39,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { PantallaSolicitudComponent } from './PANTALLAS_OPERADOR/pantalla-solicitud/pantalla-solicitud.component';
 import { CommonModule } from '@angular/common';
 import { PantallaBitacoraInicioCierreComponent } from './PANTALLAS_ADMIN/pantalla-bitacora-inicio-cierre/pantalla-bitacora-inicio-cierre.component';
+import { RegistrarSolicitudComponent } from './empresas/page/registrar-solicitud/registrar-solicitud.component';
 
 @NgModule({
   declarations: [
@@ -60,6 +61,7 @@ import { PantallaBitacoraInicioCierreComponent } from './PANTALLAS_ADMIN/pantall
     PantallaGestionOperadorComponent,
     PantallaSolicitudComponent,
     PantallaBitacoraInicioCierreComponent,
+    RegistrarSolicitudComponent,
   ],
   imports: [
     BrowserModule,
