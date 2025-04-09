@@ -15,12 +15,17 @@
     </div>
   </div>
 
-  <!-- Buscador por id -->
-  <div class="buscar-container">
-    <label for="buscarId">Buscar por ID de Transacción:</label>
-    <input id="buscarId" type="text" [(ngModel)]="idBusqueda" placeholder="Ingrese el ID">
-    <button (click)="buscarTransaccion()">Buscar</button>
-  </div>
+  <!-- Auto-buscador por ID -->
+<div class="buscar-container">
+  <label for="buscarId">Buscar por ID de Transacción:</label>
+  <input
+    id="buscarId"
+    type="text"
+    [(ngModel)]="idBusqueda"
+    (input)="buscarTransaccion()"
+    placeholder="Ingrese el ID"
+  />
+</div>
   
     <!-- Filtro para las transacciones Aprobada, Rechazada, Pendiente -->
     <div class="filtro-container">
@@ -56,10 +61,10 @@
             <td>{{ formatDate(transaccion.Fecha) }}</td>
             <td>
               <!-- Solo muestra los botones si el estado de la transacción es 'Pendiente' -->
-              <button *ngIf="transaccion.Estado === 'Pendiente'" class="btn-action" (click)="aprobarTransaccion(transaccion.IdComprobante)">
+              <button *ngIf="transaccion.Estado === 'Pendiente'" class="btn-action me-2" (click)="aprobarTransaccion(transaccion.IdComprobante)">
                 Aprobar
               </button>
-              <button *ngIf="transaccion.Estado === 'Pendiente'" class="btn-action" (click)="rechazarTransaccion(transaccion.IdComprobante)">
+              <button *ngIf="transaccion.Estado === 'Pendiente'" class="btn-action me-2" (click)="rechazarTransaccion(transaccion.IdComprobante)">
                 Rechazar
               </button>
             </td>
@@ -135,3 +140,4 @@
   </div>
 </div>
 
+ 

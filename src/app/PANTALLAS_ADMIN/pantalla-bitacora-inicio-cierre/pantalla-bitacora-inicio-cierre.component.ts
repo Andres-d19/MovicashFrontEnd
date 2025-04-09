@@ -26,7 +26,7 @@ export class PantallaBitacoraInicioCierreComponent {
         console.log("Datos recibidos:", data);
         if (!Array.isArray(data) || data.length === 0) {
           Swal.fire({
-            icon: 'info',
+            icon: 'warning',
             title: 'Sin registros',
             text: 'No hay registros disponibles para este rol.',
             confirmButtonColor: '#3085d6'

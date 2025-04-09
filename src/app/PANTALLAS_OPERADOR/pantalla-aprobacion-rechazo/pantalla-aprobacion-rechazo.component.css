@@ -160,13 +160,17 @@ body {
 
 /* Estilos para los botones de acción en la tabla */
 .transacciones-table button {
-  margin-right: 5px;
+  margin-right: 10px; /* Mayor separación entre botones */
   padding: 8px 12px;
   background-color: #164474;
   border: none;
   border-radius: 5px;
   color: white;
+  gap: 10px; /* También puedes usar gap para la separación */
+  justify-content: flex-start; /* Alineación horizontal de los botones */
+  margin-top: 10px;
   cursor: pointer;
+  transition: background-color 0.3s ease; /* Efecto de transición */
 }
 
 .transacciones-table button:hover {
