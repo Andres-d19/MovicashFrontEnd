@@ -1,5 +1,5 @@
 import { createRequire } from 'module';const require = createRequire(import.meta.url);
-import "./chunk-LDODSSGN.js";
+import "./chunk-NQ4HTGF6.js";
 
 // node_modules/sweetalert2/dist/sweetalert2.esm.all.js
 function _assertClassBrand(e, t, n) {
