@@ -9,7 +9,7 @@ import { TransactionResponse } from "../../components/interface/INTERFACES-OPERA
   providedIn: 'root'
 })
 export class SolicitudService{
-  API_URI = 'http://localhost:8090';
+  private API_URI = 'http://localhost:8090';
 
   constructor(private http : HttpClient) { }
 
